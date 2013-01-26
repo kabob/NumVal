@@ -1,0 +1,4 @@
+NumVal
+======
+
+Implicitly abstract numerics for Scala.  Enables a single math expression to apply across number types.
