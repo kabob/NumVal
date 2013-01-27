@@ -1,4 +1,796 @@
-NumVal
-======
+== ReadMe == ===== (RWK: 2013.01.26) =====
 
-Implicitly abstract numerics for Scala.  Enables a single math expression to apply across number types.
+(For a decently formatted readme file, download README.rtf instead of this .mediawiki file.  I struggled with this lame, half implemented wiki format and this is the best I could do.  What's wrong with rich text and wysiwyg?  It's the 21st Century for crying out loud!)
+
+'''License'''
+
+Use of this software is governed by the FreeBSD license provided in the included file: ''NumVal FreeBSD License.txt''
+
+
+'''About NumVal - Implicitly Abstract Numerics'''
+
+The NumVal Scala trait enables developers to write a math expression once, then implicitly apply it to any of the 10 built-in number types.  Like AnyVal, NumVal acts as a common super-type of the primitive types: Boolean, Byte, Char, Short, Int, Long, Float and Double, but also includes Scala's BigInt and BigDecimal types.  Unlike AnyVal, NumVal supplies common arithmetic operations and most of the operations found in scala.math.  Besides applying to any number type, NumVal operations also fix a number of anomalous behaviors in the standard math library, described later in this README.
+
+NumVal was developed to satisfy these goals:
+
+# Transparent (implicit) abstraction across all Scala number types
+# Arbitrary precision, using BigInt and BigDecimal types
+# Accuracy to the last (rounded) digit
+# Mathematical correctness for all input values
+# Performance
+
+Trait NumVal was initially developed to support a Java-based graphics animation library, Formulo, that is not yet released.  I decided to publish NumVal as a separate project, since generalized numerics has broader utility than merely for graphical applications.
+
+
+'''Supported operations'''
+
+Any unary or binary operation can apply to any supported number type or combination of types.  The 10 supported types are: Boolean, Byte, Char, Short, Int, Long, Float, Double, BigInt and BigDecimal.
+
+List 1. Unary operations
+
+{|
+| toBigDecimal
+| toString
+| - (unary minus)
+| exp
+|-
+| toBigInt
+| toTypeString
+| ~ (unary not)
+|ln
+|-
+| toByte
+| 
+| + (unary plus)
+| log10
+|-
+| toDouble
+| isInfinity
+| 
+| log2
+|-
+| toFloat
+| isNaN
+| hashCode
+| 
+|-
+| toInt
+| isNegInfinity
+| intPart
+| sin
+|-
+| toLong
+| isPosInfinity
+| fracPart
+| cos
+|-
+| toNative
+| 
+| sign (signum)
+| tan
+|-
+| toShort
+| 
+| abv (abs)
+| asin
+|-
+| 
+| 
+| round
+| acos
+|-
+| 
+| 
+| ulp
+| atan
+|}
+
+List 2. Binary operations
+
+{|
+| <nowiki>==</nowiki>
+| +
+|compare
+|-
+|>=
+| -
+|div
+|-
+|>
+| <nowiki>*</nowiki>
+|log
+|-
+|&lt;=
+|/
+|pow
+|-
+|&lt;
+|%
+|max
+|-
+|
+|&amp;
+|min
+|-
+|
+|<nowiki>|</nowiki>
+|
+|-
+|
+|^
+|
+|-
+|
+|&lt;&lt;
+|
+|-
+|
+|>>
+|
+|-
+|
+|>>>
+|
+|}
+
+
+'''Usage'''
+
+To use NumVal as source code, simply add the 2 files Transcendental.scala and NumVal.scala to your project, and compile them alongside your own source code.  Alternatively you can add the compiled NumVal.jar file to your project's class path.  In Eclipse, open Project > Properties > Java Build Path > Libraries tab, then click the "Add External JARs..." button to find and select the NumVal.jar file.  (Note that selecting the NumVal.jar file from the Run As > Run Configurations... > Classpath tab will not work!)
+
+Finally, include one or both of these imports in your source code:
+
+* import org.oxland.math._  		// to explicitly define NumVal variables
+* import org.oxland.math.NumVal._	// to implicitly convert among number types
+
+The first import, ~.math._, lets you explicitly reference the NumVal trait, for example:
+
+* import org.oxland.math._
+* def add(a:NumVal, b:NumVal):NumVal = a + b
+
+The second import, ~.NumVal._, enables implicit conversions from any of the 10 Scala number types to NumVal, as needed to invoke a NumVal operation.  For example:
+
+* import org.oxland.math.NumVal._
+* true * math.Pi		// since the Boolean type "true" has no '*' operator, it is implicitly wrapped as a NumVal
+
+In Scala you can restrict the scope of either import by placing it in the curly brackets of a block.  Either import can be used independently of the other.
+
+
+'''Source Files'''
+
+* Transcendental.scala			- source code for the transcendental functions
+* NumVal.scala				- source code for the NumVal trait, its subclasses and companion object
+* TestNumVal.scala				- the ScalaTest class
+
+
+'''GitHub Contents'''
+
+The following files are included in this release:
+
+* README.mediawiki				- this file
+* README.rtf				- read me RTF file
+* FreeBSD NumVal License.txt		- the software license
+* ChangeList.rtf				- Changes per release
+* NumVal.jar					- the compiled JAR
+* Suggestions.rtf				- Suggestion Box
+* Bugs.rtf					- Known Bug List
+* TODO.rtf					- list of planned code additions/changes
+* doc						- folder containing the scaladoc documentation
+* src						- folder containing the source code
+* test						- folder containing the test code
+* sandbox					- folder to contain experimental or pre-release code
+
+
+'''Differences from Scala and Java math'''
+
+Abstraction across number types allows both more correct and more accurate operations on numbers, through type promotion.
+
+For example, try this in Scala's REPL:
+
+* scala> val b:Byte = -128; b abs
+* b: Byte = -128
+* res0: Byte = -128
+
+Wait, shouldn't the absolute value of -128 be +128?  The reason for the incorrect result is that Scala (and Java) implements the abs function to return Byte.  Since Byte values only range from -128 .. +127, there is no Byte value for +128, so abs simply returns the (negative) input value!  The limits of Byte arithmetic lead most programmers to use higher precision types, which reduces but does not eliminate the chance for error.
+
+Underflow and overflow errors can occur in Float and Double arithmetic when an operation causes the exponent to exceed its range.  If code is written correctly, and the input values are well behaved, such errors may be rare and/or detectable at runtime.  Sometimes though, code inspection alone is insufficient to determine whether a math operation or expression can fail.
+
+Besides obviously incorrect results, math expression can be susceptible to accumulated or amplified inaccuracy at a given precision.  Computing intermediate results at a higher precision than the result can ensure the accuracy of results.
+
+NumVal operations guard against both incorrect and inaccurate results in several ways.  Because they are not limited to the precision of operands, these operations can promote operand types as needed.  Binary operations promote their operands according to rules shown in Table 1.  Operands may also be demoted to preserve infinity or NaN values.  Multiplication and division operations check operand exponents to decide whether a widening promotion is needed to avoid an overflow or underflow condition.  NumVal's transcendental functions may use extra "guard digits" to ensure accurate precision.  The NumVal method toTypeString is especially useful to learn both the value and internal type of any NumVal result.
+
+Unlike Java and Scala, NumVal does not produce NaN when adding and subtracting infinities.  Instead, adding a positive and a negative infinity (or equivalently, subtracting 2 positive infinities or 2 negative infinities) results in 0.  If the operands include both Float and Double infinities, the result is Double.  If both operands are Float infinities, the result is Float.
+
+It may be argued that all infinities are not alike, so the Java/Scala behavior is correct, and adding positive and negative infinities should yield NaN, not zero.  However, Java/Scala numerics handling of infinity is already inconsistent with respect to equality.  This is Scala:
+
+* scala> 1.0/0 == 3.0/0.0
+* res1: Boolean = true			// Scala considers all positive infinities equal
+
+* scala> -1.0/0 == -3.0/0.0
+* res2: Boolean = true			// Scala considers all negative infinities equal
+
+* scala> (pinf + ninf) == (pinf + ninf)
+* res3: Boolean = false		// yet adding pos to neg infinity yields NaN, which is never equal to itself!
+
+NumVal chooses to make ==, + and - operators consistent with each other in handling of infinities.
+
+Division by zero is especially inconsistent in Java and Scala.  In NumVal the rule is simple: regardless of the underlying number types, dividing zero by zero always gives NaN, and dividing any non-zero number by zero gives infinity with the same sign as the numerator.  Java and Scala might give those results, or may produce one of various exceptions, depending on the numerator and denominator types.  See Table 4 for the gory details.
+
+Sometimes promoting a value to a wider type can introduce errors, albeit very small ones.  Consider what happens when we assign a Float literal to a Double:
+
+* scala> val d:Double = 0.7f
+* d: Double = 0.699999988079071
+
+It turns out that the IEEE 754 floating point numerics standard that represents Floats and Doubles can only approximate most decimal fractions.  Widening 0.7 from Float to Double reveals a tiny error in the original Float.  Such errors are too small to be mathematically significant, but they can be a pain to explain to customers and test engineers.  NumVal internally uses a temporary BigDecimal to prevent these conversion errors.
+
+Care was taken to ensure that results are accurate and correct, even though they may differ with Java's or Scala's built-in functions and math library.  The following tables describe NumVal's promotion rules and differences with Java / Scala results.  If you believe that a given NumVal result is wrong, or does not agree with the documentation, please report a bug.
+
+
+Table 1.  Rules for binary operand promotion.  Operand types (row & column headers) are promoted to the intersection type, except as noted.
+{| class="wikitable"
+style="background-color: white; font-size: x-small;"
+| 
+! align="left"| Boolean
+! align="left"| Byte
+! align="left"| Char
+! align="left"| Short
+! align="left"| Int
+! align="left"| Long
+! align="left"| Float
+! align="left"| Double
+! align="left"| BigInt
+! align="left"| BigDec
+|-
+! align="left"| Boolean
+| style="background-color: #ccffdd;"| 
+|Byte
+|Char
+|Short
+|Int
+|Long
+|Float
+|Double
+|BigInt
+|BigDec
+|-
+! align="left"| Byte
+|Byte
+| style="background-color: #ccffdd;"| 
+|Char
+|Short
+|Int
+|Long
+|Float
+|Double
+|BigInt
+|BigDec
+|-
+! align="left"| Char
+|Char
+|Char
+| style="background-color: #ccffdd;"| 
+|Int
+|Int
+|Long
+|Float
+|Double
+|BigInt
+|BigDec
+|-
+! align="left"| Short
+|Short
+|Short
+|Int
+| style="background-color: #ccffdd;"| 
+|Int
+|Long
+|Float
+|Double
+|BigInt
+|BigDec
+|-
+! align="left"| Int
+|Int
+|Int
+|Int
+|Int
+| style="background-color: #ccffdd;"| 
+|Long
+|Double
+|Double
+|BigInt
+|BigDec
+|-
+! align="left"| Long
+|Long
+|Long
+|Long
+|Long
+|Long
+| style="background-color: #ccffdd;"| 
+|BigDec†
+|BigDec†
+|BigInt
+|BigDec
+|-
+! align="left"| Float
+|Float
+|Float
+|Float
+|Float
+|Double
+|BigDec†
+| style="background-color: #ccffdd;"| 
+|Double
+|BigDec‡
+|BigDec‡
+|-
+! align="left"| Double
+|Double
+|Double
+|Double
+|Double
+|Double
+|BigDec†
+|Double
+| style="background-color: #ccffdd;"| 
+|BigDec‡
+|BigDec‡
+|-
+! align="left"| BigInt
+|BigInt
+|BigInt
+|BigInt
+|BigInt
+|BigInt
+|BigInt
+|BigDec‡
+|BigDec‡
+| style="background-color: #ccffdd;"| 
+|BigDec
+|-
+! align="left"| BigDec
+|BigDec
+|BigDec
+|BigDec
+|BigDec
+|BigDec
+|BigDec
+|BigDec‡
+|BigDec‡
+|BigDec
+| style="background-color: #ccffdd;"| 
+|}
+* † Preserve Float or Double Infinity
+* ‡ Preserve Float or Double Infinity or NaN
+* Note: "BigDec" is an abbreviation of "BigDecimal"; it's the only way this table would fit in this .mediawiki format.
+
+The tables below assume these assignments:
+
+* val maxFloat = Float.MaxValue             // maxFloat  : Float = 3.4028235E38
+* val minFloat = Float.MinValue             // minFloat  : Float = -3.4028235E38
+* val maxDouble = Double.MaxValue           // maxDouble  : Double = 1.7976931348623157E308
+* val minDouble = Double.MinValue           // minDouble  : Double = -1.7976931348623157E308
+* val posInf = 1.0 / 0.0                    // posInf  : Double = Infinity
+* val negInf = -1.0 / 0.0                   // negInf  : Double = -Infinity
+
+To obtain the NumVal results, one or both of the imports described in the Usage section were required, and at least one operand was a NumVal initialized as follows:
+
+* val nvMaxFloat:NumVal = maxFloat
+
+
+Table 2. Addition and Subtraction; comparison of results.
+{| class="wikitable"
+style="background-color: white;"
+| 
+! align="left"| Java/Scala
+! align="left"| NumVal
+|-
+! align="left"| maxFloat + maxFloat
+|  Infinity
+|  6.805646932770577E38
+|-
+! align="left"| minFloat + minFloat
+| -Infinity
+| -6.805646932770577E38
+|-
+! align="left"| maxDouble + maxDouble
+|  Infinity
+|  3.5953862697246314E+308
+|-
+! align="left"| minDouble + minDouble
+| -Infinity
+| -3.5953862697246314E+308
+|-
+! align="left"| posInf + posInf
+|  Infinity
+|  Infinity
+|-
+! align="left"| negInf + negInf
+| -Infinity
+| -Infinity
+|-
+! align="left"| posInf + negInf
+|  NaN
+|  0.0
+|-
+| 
+| 
+| 
+|-
+! align="left"| posInf - posInf
+|  NaN
+|  0.0
+|-
+! align="left"| negInf - negInf
+|  NaN
+|  0.0
+|-
+! align="left"| posInf - negInf
+|  Infinity
+|  Infinity
+|-
+! align="left"| negInf - posInf
+| -Infinity
+| -Infinity
+|}
+
+
+Table 3. Multiplication and Division; comparison of results.
+{| class="wikitable"
+style="background-color: white;"
+| 
+! align="left"| Java/Scala
+! align="left"| NumVal
+|-
+! align="left"| maxFloat * maxFloat
+|  Infinity
+|  1.157920777215225E77
+|-
+! align="left"| minFloat * minFloat
+|  Infinity
+|  1.157920777215225E77
+|-
+! align="left"| maxDouble * maxDouble
+|  Infinity
+|  3.23170060713109998320439596646649E+616
+|-
+! align="left"| minDouble * minDouble
+|  Infinity
+|  3.23170060713109998320439596646649E+616
+|-
+! align="left"| posInf * posInf
+|  Infinity
+|  Infinity
+|-
+! align="left"| negInf * negInf
+|  Infinity
+|  Infinity
+|-
+! align="left"| posInf * negInf
+| -Infinity
+| -Infinity
+|-
+| 
+| 
+| 
+|-
+! align="left"| posInf / posInf
+|  NaN
+|  1.0
+|-
+! align="left"| negInf / negInf
+|  NaN
+|  1.0
+|-
+! align="left"| posInf / negInf
+|  NaN
+| -1.0
+|-
+! align="left"| negInf / posInf
+|  NaN
+| -1.0
+|}
+
+
+These assignments are assumed in Table 4:
+
+* val zi = 0                                // zi  : Int = 0
+* val zd = 0.0                              // zd  : Double = 0.0
+* val zb = BigDecimal("0")                  // zb  : scala.math.BigDecimal = 0
+* val oi = 1                                // oi  : Int = 1
+* val od = 1.0                              // od  : Double = 1.0
+* val ob = BigDecimal("1.0")                // ob  : scala.math.BigDecimal = 1.0
+* val posInf = 1.0 / 0.0                    // posInf  : Double = Infinity
+* val negInf = -1.0 / 0.0                   // negInf  : Double = -Infinity
+
+Table 4. Division by zero.
+{| class="wikitable"
+style="background-color: white;"
+| 
+! align="left"| Java/Scala
+! align="left"| NumVal
+! align="left"| Scala Exception
+|-
+! align="left"| zd/zd
+|  NaN
+|  NaN
+| 
+|-
+! align="left"| zi/zd
+|  NaN
+|  NaN
+| 
+|-
+! align="left"| zd/zi
+|  NaN
+|  NaN
+| 
+|-
+! align="left"| zi/zi
+|  exception
+|  NaN
+|java.lang.ArithmeticException: / by zero
+|-
+! align="left"| zi/zb
+|  exception
+|  NaN
+|java.lang.ArithmeticException: Division undefined
+|-
+! align="left"| zb/zi
+|  exception
+|  NaN
+|java.lang.ArithmeticException: Division undefined
+|-
+! align="left"| zb/zb
+|  exception
+|  NaN
+|java.lang.ArithmeticException: Division undefined
+|-
+! align="left"| zd/zb
+|  exception
+|  NaN
+|java.lang.ArithmeticException: Division undefined
+|-
+! align="left"| zb/zd
+|  exception
+|  NaN
+|java.lang.ArithmeticException: Division undefined
+|-
+| 
+| 
+| 
+| 
+|-
+! align="left"| od/zd
+|  Infinity
+|  Infinity
+| 
+|-
+! align="left"| oi/zd
+|  Infinity
+|  Infinity
+| 
+|-
+! align="left"| od/zi
+|  Infinity
+|  Infinity
+| 
+|-
+! align="left"| oi/zi
+|  exception
+|  Infinity
+|java.lang.ArithmeticException: / by zero
+|-
+! align="left"| oi/zb
+|  exception
+|  Infinity
+|java.lang.ArithmeticException: Division by zero
+|-
+! align="left"| ob/zi
+|  exception
+|  Infinity
+|java.lang.ArithmeticException: Division by zero
+|-
+! align="left"| ob/zb
+|  exception
+|  Infinity
+|java.lang.ArithmeticException: Division by zero
+|-
+! align="left"| od/zb
+|  exception
+|  Infinity
+|java.lang.ArithmeticException: Division by zero
+|-
+! align="left"| ob/zd
+|  exception
+|  Infinity
+|java.lang.ArithmeticException: Division by zero
+|-
+| 
+| 
+| 
+| 
+|-
+! align="left"| posInf/zi
+|  Infinity
+|  Infinity
+| 
+|-
+! align="left"| posInf/zd
+|  Infinity
+|  Infinity
+| 
+|-
+! align="left"| posInf/zb
+|  exception
+|  Infinity
+|java.lang.NumberFormatException
+|-
+! align="left"| negInf/zi
+| -Infinity
+| -Infinity
+| 
+|-
+! align="left"| negInf/zd
+| -Infinity
+| -Infinity
+|
+|-
+! align="left"| negInf/zb
+|  exception
+| -Infinity
+|java.lang.NumberFormatException
+|}
+
+
+These assignments are assumed in the following tables:
+
+* val zero = 0
+* val one = 1
+* val two = 2
+* val negTwo = -2
+* val ten = 10
+* val frac = 0.3
+* val odd = 3
+* val even = 4
+* val n = 0.7		// could be anything
+* val neg = -0.7		// could be any negative
+
+As with the pow function in the math library, NumVal's pow function takes two operands, a value and exponent.  Instead of calling math.pow(value,exponent), you call value.pow(exponent).
+
+
+Table 5. Power function.  Compare Java/Scala's math.pow function with NumVal's pow.
+{| class="wikitable"
+style="background-color: white;"
+| 
+! align="left"| Java/Scala
+! align="left"| NumVal
+! align="left"| Notes
+|-
+! align="left"| math.pow(two,frac)
+|  1.2311444133449163
+|  1.2311444133449163
+| 
+|-
+! align="left"| math.pow(negTwo,frac)
+|  NaN
+|  NaN
+|no complex number support
+|-
+! align="left"| math.pow(negTwo,odd)
+| -8.0
+| -8.0
+|odd exponent preserves sign
+|-
+! align="left"| math.pow(negTwo,even)
+|  16.0
+|  16.0
+|even exponent gives pos sign
+|-
+| 
+| 
+| 
+| 
+|-
+! align="left"| math.pow(negTwo,posInf)
+|  Infinity
+|  NaN
+|Is the (infinite) exponent even or odd? Sign of result is indeterminate!
+|-
+! align="left"| math.pow(neg,negInf)
+|  Infinity
+|  NaN
+|Is the (infinite) exponent even or odd? Sign of result is indeterminate!
+|-
+! align="left"| math.pow(one,posInf)
+|  NaN
+|  1.0
+|one to any exponent is still one
+|-
+! align="left"| math.pow(one,negInf)
+|  NaN
+|  1.0
+|one to any exponent is still one
+|}
+
+
+Like the math libraries in Java and Scala, NumVal includes base 10 and base e logs, except that these work on any number type.  NumVal also provides a 2-operand log function, which takes a base of any number type.  Table 6 gives results for some specific input values.  The log function is called on the value and passed the base, for example: x.log(base).
+
+Table 6. Logarithms to arbitrary base.  Results for specific values.
+{| class="wikitable"
+style="background-color: white;"
+! align="left"| x.log(base)
+! align="left"| NumVal.log
+|-
+| 
+| 
+|-
+! align="left"| neg.log(n)
+|  NaN
+|-
+! align="left"| zero.log(n)
+| -Infinity
+|-
+! align="left"| one.log(n)
+|  0.0
+|-
+! align="left"| n.log(ten)
+| -0.1549019599857432
+|-
+! align="left"| n.log(n)
+|  1.0
+|-
+! align="left"| n.log(neg)
+|  NaN
+|-
+! align="left"| n.log(zero)
+|  NaN
+|-
+! align="left"| n.log(one)
+|  NaN
+|-
+! align="left"| n.log(posInf)
+|  NaN
+|-
+! align="left"| posInf.log(n)
+|  Infinity
+|}
+
+
+In general, unless the operands of a transcendental function are BigInt or BigDecimal, the function is performed using floating point rather than arbitrary precision arithmetic.  A BigDecimal operand defines the result's precision, unless another operand is a floating point Infinity or NaN value.
+
+NumVal also provides trig and inverse trig functions, which give the same results as Scala's math library, unless the operand is a higher precision BigDecimal, which will define the result's precision.
+
+The precision of a BigDecimal can be set using Java's MathContext as follows:
+
+* val mc900 = new java.math.MathContext(900)
+* val big3 = BigDecimal("3", mc900)		// creates a BigDecimal with 900 digit precision
+
+
+'''Performance'''
+
+Individual NumVal operations are sufficiently fast for most coding problems, even using high precision BigInt and BigDecimal numbers.  However, when working with large numeric collections or iterating over math expressions, implicit conversion can generate many NumVal wrappers, creating extra work for the garbage collector.  These immutable value wrappers enable lock-free and thread-safe code, but may not be scalable due to the GC burden.
+
+If you require map, reduce, or other functional transforms on large collections, you can use NumVal's type conversions to prepare a non-NumVal typed collection, and then access that collection in regular Scala.
+
+To address scalable performance, a DSL for expression evaluation and collections with built-in concurrency support is planned for a future NumVal release.
+
+
+'''Suggestions and Bugs'''
+
+You may post suggestions to the file, Suggestions.rtf, and bugs to the file Bugs.rtf.  If the volume of changes becomes unmanageable, I may change this mechanism.
+
+
+'''Developer guidelines'''
+
+Once suggestions or bugs are approved, these will be added to the TODO list, and once implemented in a new release, changes will be reflected in the ChangeList.
+
+Developers may contribute candidate code and tests to the sandbox.  To test out any code changes, you will need ScalaTest installed.  Run the file TestNumVal.scala as a ScalaTest to verify that no errors were introduced.  You may also wish to add new test data or test cases for your changes.  Follow the instructions in the comment for class TestNumVal to add new test data, or to verify new operators on existing types, or new numeric types.
+
+Any changes you make to source files NumVal.scala, Transcendental.scala, or TestNumVal.scala should be uploaded to the sandbox folder.
+
+
+'''Contact'''
+
+You may contact me through LinkedIn: http://www.linkedin.com/in/robertkohlenberger
