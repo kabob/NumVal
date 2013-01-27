@@ -1,7 +1,5 @@
 == ReadMe == ===== (RWK: 2013.01.26) =====
 
-(For a decently formatted readme file, download README.rtf instead of this .mediawiki file.  I struggled with this lame, half implemented wiki format and this is the best I could do.  What's wrong with rich text and wysiwyg?  It's the 21st Century for crying out loud!)
-
 '''License'''
 
 Use of this software is governed by the FreeBSD license provided in the included file: ''NumVal FreeBSD License.txt''
