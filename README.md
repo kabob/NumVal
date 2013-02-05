@@ -1,6 +1,6 @@
-# NumVal - Implicitly Abstract Numerics #
+# NumVal — Implicitly abstract numerics #
 
-The NumVal Scala trait enables developers to write a math expression once, then implicitly apply it to any of the 10 built-in number types.  Like AnyVal, NumVal acts as a common super-type of the primitive types: Boolean, Byte, Char, Short, Int, Long, Float and Double, but also includes Scala's BigInt and BigDecimal types.  Unlike AnyVal, NumVal supplies common arithmetic operations and most of the operations found in scala.math.  Besides applying to any number type, NumVal operations also fix a number of anomalous behaviors in the standard math library, described later in this README.
+The `NumVal` Scala trait enables developers to write a math expression once, then implicitly apply it to any of the 10 built-in number types.  Like `AnyVal`, NumVal acts as a common super-type of the primitive types: `Boolean`, `Byte`, `Char`, `Short`, `Int`, `Long`, `Float` and `Double`, but also includes Scala's `BigInt` and `BigDecimal` types.  Unlike `AnyVal`, `NumVal` supplies common arithmetic operations and most of the operations found in `scala.math`.  Besides applying to any number type, `NumVal` operations also fix a number of anomalous behaviors in the standard math library, described in the documentation.
 
 NumVal was developed to satisfy these goals:
 
@@ -13,8 +13,8 @@ NumVal was developed to satisfy these goals:
 Trait NumVal was initially developed to support a Java-based graphics animation library, Formulo, that is not yet released.  I decided to publish NumVal as a separate project, since generalized numerics has broader utility than merely for graphical applications.
 
 ## Installation ##
-Numval is hosted on [Maven Central](http://central.maven.org/maven2/org/oxland/).
-You can add it as a dependency to your `build.sbt` file. It is built for Scala 2.9.0, 2.9.1, 2.9.2, 2.9.3-RC, and dash number variants.
+NumVal is hosted on [Maven Central](http://central.maven.org/maven2/org/oxland/).
+You can add it as a dependency to your `build.sbt` file. It is built for Scala 2.9.0, 2.9.1, 2.9.2, 2.9.3-RC, and dash-numbered variants.
 
 ```scala
 libraryDependencies += "org.oxland" %% "numval" % "0.1.0"
@@ -28,7 +28,7 @@ Include one or both of these imports in your source code:
 - `import org.oxland.math._      // to explicitly define NumVal variables`
 - `import org.oxland.math.NumVal._  // to implicitly convert among number types`
 
-The first import, `~.math._`, lets you explicitly reference the NumVal trait, for example:
+The first import, `~.math._`, lets you explicitly reference the `NumVal` trait, for example:
 
 - `import org.oxland.math._`
 - `def add(a:NumVal, b:NumVal):NumVal = a + b`
