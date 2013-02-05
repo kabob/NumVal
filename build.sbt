@@ -58,7 +58,9 @@ scalacOptions ++= Seq(
 javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 /* dependencies */
-libraryDependencies ++= Seq ()
+libraryDependencies ++= Seq(
+  "org.scalatest" %% "scalatest" % "2.0.M5b" % "test"
+)
 
 /* you may need these repos */
 resolvers ++= Seq(
