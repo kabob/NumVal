@@ -44,7 +44,8 @@ In Scala you can restrict the scope of either import by placing it in the curly 
 Either import can be used independently of the other.
 
 ## Documentation ##
-Please see the [wiki](https://github.com/kabob/NumVal/wiki/_pages) for full the full user guide, development notes, and performance guide.
+- See the [http://kabob.github.com/NumVal](API documentation) (Scaladocs).
+- The [project wiki](https://github.com/kabob/NumVal/wiki/_pages) contains a full user guide, development notes, performance guide, and other resources.
 
 
 ## Build yourself ##
