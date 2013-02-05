@@ -2,7 +2,7 @@
 
 '''License'''
 
-Use of this software is governed by the FreeBSD license provided in the included file: ''NumVal FreeBSD License.txt''
+Use of this software is governed by the FreeBSD license provided in the included file: ''LICENSE''
 
 
 '''About NumVal - Implicitly Abstract Numerics'''
