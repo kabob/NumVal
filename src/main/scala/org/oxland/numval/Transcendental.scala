@@ -32,7 +32,7 @@
  * @author Robert W Kohlenberger
  */
 
-package org.oxland.math
+package org.oxland.numval
 
 import scala.annotation.tailrec
 
