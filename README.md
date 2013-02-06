@@ -14,7 +14,7 @@ Trait NumVal was initially developed to support a Java-based graphics animation 
 
 ## Installation ##
 NumVal is hosted on [Maven Central](http://central.maven.org/maven2/org/oxland/).
-You can add it as a dependency to your `build.sbt` file. It is built for Scala 2.9.0, 2.9.1, 2.9.2, 2.9.3-RC, and dash-numbered variants.
+You can add it as a dependency to your `build.sbt` file. It is built for Scala 2.9.1, 2.9.2, 2.9.3-RC, and dash-numbered variants.
 
 ```scala
 libraryDependencies += "org.oxland" %% "numval" % "0.1.0"
