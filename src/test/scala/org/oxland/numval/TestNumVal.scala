@@ -98,7 +98,7 @@ class TestNumVal extends Spec {
    * @param t The numeric type.
    * @return The Array of test values for type t.
    */
-  protected def valueList(t: NumType) =
+  protected def valueList(t: NumType): Array[NumVal] =
     t match {
       case `bool` => Array(true, false)
       case `byte` => Array(Byte.MinValue, -2.byteValue, -1.byteValue, 0.byteValue, 1.byteValue, 2.byteValue, Byte.MaxValue)

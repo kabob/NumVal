@@ -5,7 +5,10 @@ organization := "org.oxland"
 
 version := "0.1.0-SNAPSHOT"
 
-description := "Implicitly abstract numerics for Scala. Enables a single math expression to apply across number types."
+description :=
+  """|Implicitly abstract numerics for Scala.
+     |Enables a single math expression to apply across number types.
+     |""".stripMargin.trim
 
 homepage := Some(url("https://github.com/kabob/NumVal"))
 
@@ -24,11 +27,11 @@ scmInfo := Some(
 )
 
 /* scala versions and options */
-scalaVersion := "2.9.2"
+scalaVersion := "2.10.0"
 
 crossScalaVersions := Seq(
-  // "2.10.0",
   "2.9.3-RC1",
+  "2.9.2",
   "2.9.1", "2.9.1-1"
   /* "2.9.0", "2.9.0-1", */
   /* "2.8.0"  "2.8.1", "2.8.2" */
@@ -36,24 +39,26 @@ crossScalaVersions := Seq(
 
 offline := false
 
-// scalacOptions <+= scalaVersion { sv =>
-//   if (sv.startsWith("2.10")) List(
-//     "-feature",
-//     // "-language:postfixOps",
-//     // "-language:reflectiveCalls",
-//     "-language:implicitConversions"
-//     // "-language:higherKinds",
-//     // "-language:existentials",
-//     // "-language:experimental.macros",
-//     // "-language:experimental.dynamics",
-//   )
-//   else Nil
-// }
-
 scalacOptions ++= Seq(
   "-deprecation",
   "-unchecked"
 )
+
+scalacOptions <++= scalaVersion map { sv =>
+  if (sv startsWith "2.10") List(
+    "-feature",
+    // "-language:postfixOps",
+    // "-language:reflectiveCalls",
+    "-language:implicitConversions"
+      // "-language:higherKinds",
+      // "-language:existentials",
+      // "-language:experimental.macros",
+      // "-language:experimental.dynamics",
+  )
+  else Nil
+}
+
+
 
 javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
