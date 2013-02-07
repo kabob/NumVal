@@ -1,1 +1,0 @@
-Index.PACKAGES = {"org" : [], "org.oxland" : [], "org.oxland.math" : [{"object" : "org\/oxland\/math\/NumVal$.html", "trait" : "org\/oxland\/math\/NumVal.html", "name" : "org.oxland.math.NumVal"}, {"object" : "org\/oxland\/math\/Transcendental$.html", "name" : "org.oxland.math.Transcendental"}]};
