@@ -110,7 +110,7 @@ class TestNumVal extends Spec {
         Float.MinPositiveValue, 0.3f, 1f, 2f, 3.4f, 3.5f, 3.6f, Float.MaxValue, Float.PositiveInfinity)
       case `double` => Array(Double.NegativeInfinity, Double.MinValue, -0.3, -3.6, -3.5, -3.4, -2.0, -1.0, -0.3, -Double.MinPositiveValue, 0.0,
         Double.MinPositiveValue, 0.3, 1.0, 2.0, 3.4, 3.5, 3.6, Double.MaxValue, Double.PositiveInfinity)
-      case `bigInt` => Array(Long.MinValue, BigInt(-2), BigInt(-1), BigInt(0), BigInt(1), BigInt(2), Long.MaxValue)
+      case `bigInt` => Array(BigInt(Long.MinValue), BigInt(-2), BigInt(-1), BigInt(0), BigInt(1), BigInt(2), BigInt(Long.MaxValue))
       case `bigDec` => Array(BigDecimal(Double.MinValue), BigDecimal("-3.6"), BigDecimal("-3.5"), BigDecimal("-3.4"),
         BigDecimal("-2"), BigDecimal("-1"), BigDecimal(-Double.MinPositiveValue), BigDecimal("0"),
         BigDecimal(Double.MinPositiveValue), BigDecimal("1"), BigDecimal("2"), BigDecimal("3.4"),
