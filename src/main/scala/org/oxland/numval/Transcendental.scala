@@ -904,9 +904,9 @@ object Transcendental {
 
 }      // Transcendental
 
-//class Debug {}
+//class DebugTd {}
 //
-//object Debug {
+//object DebugTd {
 //
 //  def main(args: Array[String]) {
 //    println("hello world")
@@ -946,4 +946,4 @@ object Transcendental {
 //    println("e^4944763835 =" + e5 + ", time=" + (t5 - t4))
 //  }
 //
-//}
+//}		// DebugTd class

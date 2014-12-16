@@ -8307,3 +8307,11 @@ class TestNumVal extends Spec {
     }
   }
 }
+
+class DebugTnv {}
+
+object DebugTnv {
+  def main(args: Array[String]) {
+  	println("in DebugTnv")
+  }
+}

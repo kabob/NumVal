@@ -1174,6 +1174,8 @@ object NumVal {
    */
   def apply(x: BigDecimal): NumVal = BigDecimalVal(x)
 
+  import scala.language.implicitConversions
+
   implicit def boolean2val(x: Boolean) = NumVal(x) // implicit conversions
   implicit def byte2Val(x: Byte) = NumVal(x)
   implicit def char2val(x: Char) = NumVal(x)
@@ -1441,8 +1443,9 @@ private[numval] case class ByteVal(x: Byte) extends NumVal {
 }
 
 private[numval] case class CharVal(x: Char) extends NumVal {
-  def toByte: Byte = x.byteValue
-  def toShort: Short = x.shortValue
+	import runtime.RichChar
+  def toByte: Byte = { val ch:RichChar = x; ch.byteValue }
+  def toShort: Short = { val ch:RichChar = x; ch.shortValue }
   def toInt: Int = x
   def toLong: Long = x
   def toFloat: Float = x
@@ -1473,7 +1476,7 @@ private[numval] case class CharVal(x: Char) extends NumVal {
   import NumVal.{ magInt, safePow, smallestAccurateInt }
 
   def impl_<<(shift: Int): NumVal = smallestAccurateInt(BigInt(x) << shift)
-  def impl_>>>(shift: Int): NumVal = x.longValue >>> shift
+  def impl_>>>(shift: Int): NumVal = { val ch:RichChar = x; ch.longValue >>> shift }
   def impl_>>(shift: Int): NumVal = smallestAccurateInt(BigInt(x) >> shift)
   def impl_|(that: CharVal): NumVal = x | that.x
   def impl_&(that: CharVal): NumVal = x & that.x
@@ -1481,7 +1484,7 @@ private[numval] case class CharVal(x: Char) extends NumVal {
   def impl_+(that: CharVal): NumVal = x + that.x
   def impl_-(that: CharVal): NumVal = x - that.x
   def impl_*(that: CharVal): NumVal = if (magInt(x) + magInt(that.x) < 30) x * that.x else x.toLong * that.x
-  def impl_/(that: CharVal): NumVal = x.floatValue / that.x
+  def impl_/(that: CharVal): NumVal = { val ch:RichChar = x; ch.floatValue / that.x }
   def impl_div(that: CharVal): NumVal = (x / that.x).toChar
   def impl_%(that: CharVal): NumVal = if (that.x == 0) Double.NaN else (x % that.x).toChar
   def impl_pow(expon: CharVal): NumVal = safePow(x, expon.x)
@@ -2164,4 +2167,12 @@ private[numval] case class BigDecimalVal(x: BigDecimal) extends NumVal {
     else x % that.x
   def impl_pow(expon: BigDecimalVal): NumVal = Transcendental.pow(x, expon.x)
   def impl_log(base: BigDecimalVal): NumVal = Transcendental.log(x, base.x)
+}
+
+class DebugNv0 {}
+
+object DebugNv0 {
+  def main(args: Array[String]) {
+    println("in DebugNv0")
+	}
 }
