@@ -32,7 +32,7 @@
  * @author Robert W Kohlenberger
  */
 
-package org.oxland.numval
+package org.oxland.math
 
 /**
  * <!-- NumType --> Enumeration of types, ordered by dynamic range
@@ -40,14 +40,14 @@ package org.oxland.numval
  * An exception is that a 32-bit "float" has greater range than a 64-bit "long".
  * (Implementation Note: This object must be declared OUTSIDE NumVal, or else "equals" between different NumVal NumTypes fails!)
  */
-private[numval] object NumType extends Enumeration { // add any new types before "unknown"
+private[math] object NumType extends Enumeration { // add any new types before "unknown"
   val unit, bool, byte, char, short, int, long, float, double, bigInt, bigDec, unknown = Value
 }
 
 /**
  * <!-- ErrorPolicy --> Enumeration of error policies
  */
-private[numval] object ErrorPolicy extends Enumeration {
+private[math] object ErrorPolicy extends Enumeration {
   val silent, callback, exception, log = Value
 }
 
@@ -161,7 +161,7 @@ private[numval] object ErrorPolicy extends Enumeration {
  */
 sealed trait NumVal extends Ordered[NumVal] {
 
-  private[numval] val x: Any // the underlying numeric value
+  private[math] val x: Any // the underlying numeric value
 
   /**
    * <!-- compare --> Implement the Ordered trait
@@ -234,7 +234,7 @@ sealed trait NumVal extends Ordered[NumVal] {
 //  def toLong(x:NumVal):Long = x.toLong
 //  def compare(x:NumVal, y:NumVal): Int = x.compare(y)
 
-  protected[numval] val rep = { // initialize this representation by numeric type
+  protected[math] val rep = { // initialize this representation by numeric type
     import NumType._
     x match {
       case t: Boolean => bool // 1 bit
@@ -1099,30 +1099,30 @@ sealed trait NumVal extends Ordered[NumVal] {
  */
 object NumVal {
 
-  private[numval] val MaxIntBitLength = BigInt(Int.MaxValue).bitLength // Int precision
-  private[numval] val MaxLongBitLength = BigInt(Long.MaxValue).bitLength // Long precision
-  private[numval] val RoundFloat = java.math.MathContext.DECIMAL32
-  private[numval] val RoundDouble = java.math.MathContext.DECIMAL64
+  private[math] val MaxIntBitLength = BigInt(Int.MaxValue).bitLength // Int precision
+  private[math] val MaxLongBitLength = BigInt(Long.MaxValue).bitLength // Long precision
+  private[math] val RoundFloat = java.math.MathContext.DECIMAL32
+  private[math] val RoundDouble = java.math.MathContext.DECIMAL64
 
   // Since BooleanVal constant (val) fields are initialized using I0 and I1,
   // these must be initialized BEFORE the BooleanVal constructor is called,
   // otherwise null references result!!
-  private[numval] val I0 = new IntVal(0) // singleton int zero
-  private[numval] val I1 = new IntVal(1) // singleton int one
-  private[numval] val PosInf = NumVal(Double.PositiveInfinity)
-  private[numval] val NegInf = NumVal(Double.NegativeInfinity)
+  private[math] val I0 = new IntVal(0) // singleton int zero
+  private[math] val I1 = new IntVal(1) // singleton int one
+  private[math] val PosInf = NumVal(Double.PositiveInfinity)
+  private[math] val NegInf = NumVal(Double.NegativeInfinity)
 
 
   // BooleanVal initializations must come AFTER initializing I0 and I1, otherwise null references result!!
-  private[numval] lazy val T = new BooleanVal(true) // singleton true
-  private[numval] lazy val F = new BooleanVal(false) // singleton false
-  private[numval] lazy val Fnan = new FloatVal(Float.NaN) // singleton Float NaN
-  private[numval] lazy val Dnan = new DoubleVal(Double.NaN) // singleton Double NaN
+  private[math] lazy val T = new BooleanVal(true) // singleton true
+  private[math] lazy val F = new BooleanVal(false) // singleton false
+  private[math] lazy val Fnan = new FloatVal(Float.NaN) // singleton Float NaN
+  private[math] lazy val Dnan = new DoubleVal(Double.NaN) // singleton Double NaN
 
-  private[numval] lazy val Bi0 = new BigInt(java.math.BigInteger.ZERO) // singleton BigInt zero
-  //    private[numval] val Bi1 = new BigInt(java.math.BigInteger.ONE)      // singleton BigInt one
-  private[numval] lazy val Bd0 = new BigDecimal(java.math.BigDecimal.ZERO) // singleton BigDecimal zero
-  private[numval] lazy val Bd1 = new BigDecimal(java.math.BigDecimal.ONE) // singleton BigDecimal one
+  private[math] lazy val Bi0 = new BigInt(java.math.BigInteger.ZERO) // singleton BigInt zero
+  //    private[math] val Bi1 = new BigInt(java.math.BigInteger.ONE)      // singleton BigInt one
+  private[math] lazy val Bd0 = new BigDecimal(java.math.BigDecimal.ZERO) // singleton BigDecimal zero
+  private[math] lazy val Bd1 = new BigDecimal(java.math.BigDecimal.ONE) // singleton BigDecimal one
 
   /**
    * <!-- apply --> Factory method to wrap Boolean.
@@ -1209,7 +1209,7 @@ object NumVal {
    * @param bi The input BigDecimal value.
    * @return The smallest accurate integer result.
    */
-  private[numval] def smallestAccurateInt(bi: BigInt): NumVal = {
+  private[math] def smallestAccurateInt(bi: BigInt): NumVal = {
     val bitLength = bi.bitLength // prefer smallest accurate representation
     if (bitLength > MaxLongBitLength) bi else if (bi.bitLength > MaxIntBitLength) bi.toLong else bi.toInt
   }
@@ -1219,21 +1219,21 @@ object NumVal {
    * @param i The input Int value.
    * @return The limited Int result.
    */
-  private[numval] def limitInt(i: Int): Int = if (i < Short.MinValue) Short.MinValue else if (i > Short.MaxValue) Short.MaxValue else i
+  private[math] def limitInt(i: Int): Int = if (i < Short.MinValue) Short.MinValue else if (i > Short.MaxValue) Short.MaxValue else i
 
   /**
    * <!-- magInt --> The base 2 magnitude of an integer
    * @param x The input Int value.
    * @return The magnitude.
    */
-  private[numval] def magInt(x: Int) = 31 - Integer.numberOfLeadingZeros(if (x < 0) -x else x)
+  private[math] def magInt(x: Int) = 31 - Integer.numberOfLeadingZeros(if (x < 0) -x else x)
 
   /**
    * <!-- rndDouble --> Accurately round a double value.
    * @param x The input value.
    * @return The rounded Double result.
    */
-  private[numval] def rndDouble(x: Double) = BigDecimal(x).round(RoundDouble).doubleValue
+  private[math] def rndDouble(x: Double) = BigDecimal(x).round(RoundDouble).doubleValue
 
   /**
    * <!-- safeLog --> Give the Double log of x to a given base, with sanity checks
@@ -1241,7 +1241,7 @@ object NumVal {
    * @param base The log base.
    * @return The Double log result
     */
-  private[numval] def safeLog(x: Double, base: Double): Double = {
+  private[math] def safeLog(x: Double, base: Double): Double = {
     (x,base) match {    // perform sanity checks for special values of x and base
       case (a, b) if a < 0.0 => Double.NaN
       case (0.0, b) => Double.NegativeInfinity
@@ -1261,7 +1261,7 @@ object NumVal {
    * @param expon The exponent.
    * @return The Double power result
    */
-  private[numval] def safePow(x: Double, expon: Double): Double = {
+  private[math] def safePow(x: Double, expon: Double): Double = {
     if (expon == 0.0) 1.0
     else if (expon == 1.0) x
     else if (x < 0.0) {
@@ -1305,7 +1305,7 @@ object NumVal {
    * @param exp The exponent.
    * @return The rounded BigInt result.
    */
-  private[numval] def bigIntPow(value: BigInt, expon: BigInt):NumVal = {
+  private[math] def bigIntPow(value: BigInt, expon: BigInt):NumVal = {
     if (expon == 0) I1
     else if (expon == 1.0) value
     else {
@@ -1345,7 +1345,7 @@ object NumVal {
 
 }    // NumVal companion object
 
-private[numval] case class BooleanVal(x: Boolean) extends NumVal {
+private[math] case class BooleanVal(x: Boolean) extends NumVal {
   val toByte: Byte = if (x) 1 else 0
   val toShort: Short = if (x) 1 else 0
   val toInt: Int = if (x) 1 else 0
@@ -1394,7 +1394,7 @@ private[numval] case class BooleanVal(x: Boolean) extends NumVal {
   def impl_log(base: BooleanVal): NumVal = if (x) NumVal.F else Double.NegativeInfinity
 }
 
-private[numval] case class ByteVal(x: Byte) extends NumVal {
+private[math] case class ByteVal(x: Byte) extends NumVal {
   def toByte: Byte = x
   def toShort: Short = x
   def toInt: Int = x
@@ -1442,7 +1442,7 @@ private[numval] case class ByteVal(x: Byte) extends NumVal {
   def impl_log(base: ByteVal): NumVal = NumVal.safeLog(x,base.x)
 }
 
-private[numval] case class CharVal(x: Char) extends NumVal {
+private[math] case class CharVal(x: Char) extends NumVal {
 	import runtime.RichChar
   def toByte: Byte = { val ch:RichChar = x; ch.byteValue }
   def toShort: Short = { val ch:RichChar = x; ch.shortValue }
@@ -1491,7 +1491,7 @@ private[numval] case class CharVal(x: Char) extends NumVal {
   def impl_log(base: CharVal): NumVal = NumVal.safeLog(x,base.x)
 }
 
-private[numval] case class ShortVal(x: Short) extends NumVal {
+private[math] case class ShortVal(x: Short) extends NumVal {
   def toByte: Byte = x.byteValue
   def toShort: Short = x
   def toInt: Int = x
@@ -1539,7 +1539,7 @@ private[numval] case class ShortVal(x: Short) extends NumVal {
   def impl_log(base: ShortVal): NumVal = NumVal.safeLog(x,base.x)
 }
 
-private[numval] case class IntVal(x: Int) extends NumVal {
+private[math] case class IntVal(x: Int) extends NumVal {
   def toByte: Byte = x.byteValue
   def toShort: Short = x.shortValue
   def toInt: Int = x
@@ -1607,7 +1607,7 @@ private[numval] case class IntVal(x: Int) extends NumVal {
   def impl_log(base: IntVal): NumVal = NumVal.safeLog(x,base.x)
 }
 
-private[numval] case class LongVal(x: Long) extends NumVal {
+private[math] case class LongVal(x: Long) extends NumVal {
   def toByte: Byte = x.byteValue
   def toShort: Short = x.shortValue
   def toInt: Int = x.intValue
@@ -1667,7 +1667,7 @@ private[numval] case class LongVal(x: Long) extends NumVal {
   def impl_log(base: LongVal): NumVal = NumVal.safeLog(x,base.x)
 }
 
-private[numval] case class FloatVal(x: Float) extends NumVal {
+private[math] case class FloatVal(x: Float) extends NumVal {
   import NumVal.{ Fnan, RoundDouble, safePow, smallestAccurateInt }
 
   def toByte: Byte = x.byteValue
@@ -1832,7 +1832,7 @@ private[numval] case class FloatVal(x: Float) extends NumVal {
   def impl_log(base: FloatVal): NumVal = NumVal.safeLog(toDouble,base.toDouble)
 }
 
-private[numval] case class DoubleVal(x: Double) extends NumVal {
+private[math] case class DoubleVal(x: Double) extends NumVal {
   import NumVal.{ Dnan, rndDouble, safePow, smallestAccurateInt }
 
   def toByte: Byte = x.byteValue
@@ -2006,7 +2006,7 @@ private[numval] case class DoubleVal(x: Double) extends NumVal {
   def impl_log(base: DoubleVal): NumVal = NumVal.safeLog(x,base.x)
 }
 
-private[numval] case class BigIntVal(x: BigInt) extends NumVal {
+private[math] case class BigIntVal(x: BigInt) extends NumVal {
   import NumVal.{ bigIntPow, smallestAccurateInt }
 
   // TODO: Implement a generation counter to track the number of operations since smallestAccurateInt was called.
@@ -2066,7 +2066,7 @@ private[numval] case class BigIntVal(x: BigInt) extends NumVal {
   def impl_log(base: BigIntVal): NumVal = Transcendental.log(BigDecimal(x), BigDecimal(base.x))
 }
 
-private[numval] case class BigDecimalVal(x: BigDecimal) extends NumVal {
+private[math] case class BigDecimalVal(x: BigDecimal) extends NumVal {
   import NumVal.{ Bd0, Bd1, I0, I1, smallestAccurateInt }
 
   // TODO: Implement a generation counter to track the number of operations since smallestAccurateFloat was called.
@@ -2081,8 +2081,8 @@ private[numval] case class BigDecimalVal(x: BigDecimal) extends NumVal {
   def toBigInt: BigInt = xint.toBigInt
   def toBigDecimal: BigDecimal = x
 
-  private[numval] def xfrac = x.remainder(Bd1(x.mc))  // avoid infinite recursion; avoid calling public defs
-  private[numval] def xint = x - x.remainder(Bd1(x.mc))
+  private[math] def xfrac = x.remainder(Bd1(x.mc))  // avoid infinite recursion; avoid calling public defs
+  private[math] def xint = x - x.remainder(Bd1(x.mc))
 
   def intPart: NumVal = smallestAccurateInt(xint.toBigInt)
   def fracPart: NumVal = xfrac

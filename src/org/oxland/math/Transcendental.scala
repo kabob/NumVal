@@ -32,7 +32,7 @@
  * @author Robert W Kohlenberger
  */
 
-package org.oxland.numval
+package org.oxland.math
 
 import scala.annotation.tailrec
 
@@ -225,7 +225,7 @@ object Transcendental {
      */
     private def sPIgot(newDigits:Int, iter:Iteration):Iteration = {
 
-      /**
+      /*
        * <!-- g --> Solve the next n digits of pi.  Each recursion yields 1 more decimal digit.
        * @param q The current numerator factor.
        * @param r The current numerator term.
@@ -245,7 +245,7 @@ object Transcendental {
         }
       }
 
-      /**
+      /*
        * <!-- build --> Recursively build a BigInt from the new pi digits.
        * @param dList The list of partial pi decimal digits.
        * @param bi The next BigInt digit to add.
@@ -262,7 +262,13 @@ object Transcendental {
       val bi = build(dList.tail,dList.head)
       val prec = dList.length + (if (iter.value != 0) iter.value.mc.getPrecision else 0)
       val mc = new java.math.MathContext(prec)    // use the combined precision of input iteration value and new digits
-      Iteration(BigDecimal(BigDecimal(bi,mc).bigDecimal.movePointLeft(prec - 1),mc) + iter.value, q, r, t, i)
+      Iteration(
+      		BigDecimal.decimal(
+      				BigDecimal(bi,mc).bigDecimal.movePointLeft(prec - 1),
+      				mc
+      		)
+      		+ iter.value,
+      		q, r, t, i)
     }
 
     def value(mc:java.math.MathContext):BigDecimal = {
@@ -449,7 +455,7 @@ object Transcendental {
     var intBitLength = intPart.bitLength
     var recipFracBitLength = 0
     var recipFracLowBit = 0
-    if (fracPart != 0) {
+    if (fracPart != bd0) {
       val recipFrac = (bd1 / fracPart).toBigInt
       recipFracLowBit = recipFrac.bigInteger.getLowestSetBit
       if (intBitLength == 0)

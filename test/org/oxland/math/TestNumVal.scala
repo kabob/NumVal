@@ -32,7 +32,7 @@
  * @author Robert W Kohlenberger
  */
 
-package org.oxland.numval
+package org.oxland.math
 
 import java.math.MathContext
 
@@ -93,14 +93,8 @@ class TestNumVal extends Spec {
 
 	import TestNumVal._
 
-  /**
-   * <!-- NumType --> Enumeration of numeric types
-   */
-  protected object NumType extends Enumeration { // TODO: use same NumType object as NumVal?
-    type NumType = Value
-    val unit, bool, byte, char, short, int, long, float, double, bigInt, bigDec, unknown = Value
-  }
-  import NumType._
+	import NumType._
+	type NumType = NumType.Value
 
   /**
    * <!-- valueList --> Create an array of test values for a given numeric type.
@@ -300,17 +294,17 @@ class TestNumVal extends Spec {
    */
   protected def toByteFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toByte.
-     * @param b The Scala Byte value.
-     * @param a The NumVal for which to find the Byte value.
-     */
+		/*
+		 * <!-- vfy --> Verify toByte.
+		 * @param b The Scala Byte value.
+		 * @param a The NumVal for which to find the Byte value.
+		 */
     def vfy(b: Byte, a: NumVal) {
       //      caseCount += 1
       val asByte = a.toByte
       if (b != asByte) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(b, clue) { asByte }
+        assertResult(b, clue) { asByte }
       }
     }
 
@@ -344,17 +338,17 @@ class TestNumVal extends Spec {
    */
   protected def toShortFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toShort.
-     * @param s The Scala Short value.
-     * @param a The NumVal for which to find the Short value.
-     */
+		/*
+		 * <!-- vfy --> Verify toShort.
+		 * @param s The Scala Short value.
+		 * @param a The NumVal for which to find the Short value.
+		 */
     def vfy(s: Short, a: NumVal) {
       //      caseCount += 1
       val asShort = a.toShort
       if (s != asShort) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(s, clue) { asShort }
+        assertResult(s, clue) { asShort }
       }
     }
 
@@ -388,17 +382,17 @@ class TestNumVal extends Spec {
    */
   protected def toIntFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toInt.
-     * @param i The Scala Int value.
-     * @param a The NumVal for which to find the Int value.
-     */
+		/*
+		 * <!-- vfy --> Verify toInt.
+		 * @param i The Scala Int value.
+		 * @param a The NumVal for which to find the Int value.
+		 */
     def vfy(i: Int, a: NumVal) {
       //      caseCount += 1
       val asInt = a.toInt
       if (i != asInt) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(i, clue) { asInt }
+        assertResult(i, clue) { asInt }
       }
     }
 
@@ -432,17 +426,17 @@ class TestNumVal extends Spec {
    */
   protected def toLongFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toLong.
-     * @param l The Scala Long value.
-     * @param a The NumVal for which to find the Long value.
-     */
+		/*
+		 * <!-- vfy --> Verify toLong.
+		 * @param l The Scala Long value.
+		 * @param a The NumVal for which to find the Long value.
+		 */
     def vfy(l: Long, a: NumVal) {
       //      caseCount += 1
       val asLong = a.toLong
       if (l != asLong) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(l, clue) { asLong }
+        assertResult(l, clue) { asLong }
       }
     }
 
@@ -476,17 +470,17 @@ class TestNumVal extends Spec {
    */
   protected def toFloatFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toFloat.
-     * @param f The Scala Float value.
-     * @param a The NumVal for which to find the Float value.
-     */
+		/*
+		 * <!-- vfy --> Verify toFloat.
+		 * @param f The Scala Float value.
+		 * @param a The NumVal for which to find the Float value.
+		 */
     def vfy(f: Float, a: NumVal) {
       //      caseCount += 1
       val asFloat = a.toFloat
       if (f != asFloat) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(f, clue) { asFloat }
+        assertResult(f, clue) { asFloat }
       }
     }
 
@@ -520,17 +514,17 @@ class TestNumVal extends Spec {
    */
   protected def toDoubleFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toDouble.
-     * @param d The Scala Double value.
-     * @param a The NumVal for which to find the Double value.
-     */
+		/*
+		 * <!-- vfy --> Verify toDouble.
+		 * @param d The Scala Double value.
+		 * @param a The NumVal for which to find the Double value.
+		 */
     def vfy(d: Double, a: NumVal) {
       //      caseCount += 1
       val asDouble = a.toDouble
       if (d != asDouble) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(d, clue) { asDouble }
+        assertResult(d, clue) { asDouble }
       }
     }
 
@@ -564,17 +558,17 @@ class TestNumVal extends Spec {
    */
   protected def toBigIntFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toBigInt.
-     * @param bi The Scala BigInt value.
-     * @param a The NumVal for which to find the BigInt value.
-     */
+		/*
+		 * <!-- vfy --> Verify toBigInt.
+		 * @param bi The Scala BigInt value.
+		 * @param a The NumVal for which to find the BigInt value.
+		 */
     def vfy(bi: BigInt, a: NumVal) {
       //      caseCount += 1
       val asBigInt = a.toBigInt
       if (bi != asBigInt) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(bi, clue) { asBigInt }
+        assertResult(bi, clue) { asBigInt }
       }
     }
 
@@ -608,17 +602,17 @@ class TestNumVal extends Spec {
    */
   protected def toBigDecimalFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toBigDecimal.
-     * @param bd The Scala BigDecimal value.
-     * @param a The NumVal for which to find the BigDecimal value.
-     */
+		/*
+		 * <!-- vfy --> Verify toBigDecimal.
+		 * @param bd The Scala BigDecimal value.
+		 * @param a The NumVal for which to find the BigDecimal value.
+		 */
     def vfy(bd: BigDecimal, a: NumVal) {
       //      caseCount += 1
       val asBigDecimal = a.toBigDecimal
       if (bd != asBigDecimal) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(bd, clue) { asBigDecimal }
+        assertResult(bd, clue) { asBigDecimal }
       }
     }
 
@@ -652,11 +646,11 @@ class TestNumVal extends Spec {
    */
   protected def toNativeFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toNative.
-     * @param original The Scala Native value.
-     * @param a The NumVal for which to find the Native value.
-     */
+		/*
+		 * <!-- vfy --> Verify toNative.
+		 * @param original The Scala Native value.
+		 * @param a The NumVal for which to find the Native value.
+		 */
     def vfy(a: NumVal) {
       //      caseCount += 1
       val asNative = a.toNative
@@ -694,11 +688,11 @@ class TestNumVal extends Spec {
    */
   protected def toTypeStringFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toTypeString.
-     * @param s The Scala numeric type-value string.
-     * @param a The NumVal for which to find the type-value string.
-     */
+		/*
+		 * <!-- vfy --> Verify toTypeString.
+		 * @param s The Scala numeric type-value string.
+		 * @param a The NumVal for which to find the type-value string.
+		 */
     def vfy(s: String, a: NumVal) {
       val eStr = s.replace("(", "Val(")
       val aStr = a.toTypeString
@@ -735,10 +729,10 @@ class TestNumVal extends Spec {
    */
   protected def toStringFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify toString.
-     * @param a The NumVal for which to find the value string.
-     */
+		/*
+		 * <!-- vfy --> Verify toString.
+		 * @param a The NumVal for which to find the value string.
+		 */
     def vfy(a: NumVal) {
       //      caseCount += 1
       val s = x match { case t: Char => t.toInt.toString case _ => x.toString }
@@ -779,17 +773,17 @@ class TestNumVal extends Spec {
    */
   protected def hashCodeFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify hashCode.
-     * @param a The NumVal for which to find the hash code.
-     */
+		/*
+		 * <!-- vfy --> Verify hashCode.
+		 * @param a The NumVal for which to find the hash code.
+		 */
     def vfy(a: NumVal) {
       //      caseCount += 1
       val expected = x.hashCode
       val actual = a.hashCode
       if (expected != actual) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -823,17 +817,17 @@ class TestNumVal extends Spec {
    */
   protected def izNaNFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify isNaN.
-     * @param expected Whether NaN is expected.
-     * @param a The NumVal for which to find isNaN.
-     */
+		/*
+		 * <!-- vfy --> Verify isNaN.
+		 * @param expected Whether NaN is expected.
+		 * @param a The NumVal for which to find isNaN.
+		 */
     def vfy(expected: Boolean, a: NumVal) {
       //      caseCount += 1
       val actual = a.isNaN
       if (expected != actual) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -867,17 +861,17 @@ class TestNumVal extends Spec {
    */
   protected def izInfinityFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify isInfinity.
-     * @param expected Whether positive or negative Infinity is expected.
-     * @param a The NumVal for which to find isInfinity.
-     */
+		/*
+		 * <!-- vfy --> Verify isInfinity.
+		 * @param expected Whether positive or negative Infinity is expected.
+		 * @param a The NumVal for which to find isInfinity.
+		 */
     def vfy(expected: Boolean, a: NumVal) {
       //      caseCount += 1
       val actual = a.isInfinity
       if (expected != actual) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -911,17 +905,17 @@ class TestNumVal extends Spec {
    */
   protected def izPosInfinityFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify isPosInfinity.
-     * @param expected Whether positive Infinity is expected.
-     * @param a The NumVal for which to find isPosInfinity.
-     */
+		/*
+		 * <!-- vfy --> Verify isPosInfinity.
+		 * @param expected Whether positive Infinity is expected.
+		 * @param a The NumVal for which to find isPosInfinity.
+		 */
     def vfy(expected: Boolean, a: NumVal) {
       //      caseCount += 1
       val actual = a.isPosInfinity
       if (expected != actual) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -955,17 +949,17 @@ class TestNumVal extends Spec {
    */
   protected def izNegInfinityFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify isNegInfinity.
-     * @param expected Whether negative Infinity is expected.
-     * @param a The NumVal for which to find isNegInfinity.
-     */
+		/*
+		 * <!-- vfy --> Verify isNegInfinity.
+		 * @param expected Whether negative Infinity is expected.
+		 * @param a The NumVal for which to find isNegInfinity.
+		 */
     def vfy(expected: Boolean, a: NumVal) {
       //      caseCount += 1
       val actual = a.isNegInfinity
       if (expected != actual) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -999,17 +993,17 @@ class TestNumVal extends Spec {
    */
   protected def intPartFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify intPart.
-     * @param expected The integer part of x.
-     * @param a The NumVal for which to find the int part.
-     */
+		/*
+		 * <!-- vfy --> Verify intPart.
+		 * @param expected The integer part of x.
+		 * @param a The NumVal for which to find the int part.
+		 */
     def vfy(expected: BigInt, a: NumVal) {
       //      caseCount += 1
       val actual = a.intPart.toBigInt
       if (expected != actual) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1043,17 +1037,17 @@ class TestNumVal extends Spec {
    */
   protected def fracPartFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify fracPart.
-     * @param expected The fractional part of x.
-     * @param a The NumVal for which to find the frac part.
-     */
+		/*
+		 * <!-- vfy --> Verify fracPart.
+		 * @param expected The fractional part of x.
+		 * @param a The NumVal for which to find the frac part.
+		 */
     def vfy(expected: BigDecimal, a: NumVal) {
       //      caseCount += 1
       val actual = a.fracPart.toBigDecimal
       if (expected != actual) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1087,17 +1081,17 @@ class TestNumVal extends Spec {
    */
   protected def abvFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the absolute value.
-     * @param expected The absolute value of the Scala numeric type.
-     * @param a The NumVal for which to find the absolute value.
-     */
+		/*
+		 * <!-- vfy --> Verify the absolute value.
+		 * @param expected The absolute value of the Scala numeric type.
+		 * @param a The NumVal for which to find the absolute value.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val actual = a.abv
       if (actual != expected) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1131,17 +1125,17 @@ class TestNumVal extends Spec {
    */
   protected def signumFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the sign value.
-     * @param expected The sign value of the Scala numeric type.
-     * @param a The NumVal for which to find the sign value.
-     */
+		/*
+		 * <!-- vfy --> Verify the sign value.
+		 * @param expected The sign value of the Scala numeric type.
+		 * @param a The NumVal for which to find the sign value.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val actual = a.sign
       if (actual != expected) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1175,17 +1169,17 @@ class TestNumVal extends Spec {
    */
   protected def roundFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the round value.
-     * @param expected The round value of the Scala numeric type.
-     * @param a The NumVal for which to find the round value.
-     */
+		/*
+		 * <!-- vfy --> Verify the round value.
+		 * @param expected The round value of the Scala numeric type.
+		 * @param a The NumVal for which to find the round value.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val actual = a.round
       if (actual != expected) {
         val clue = "test value: " + toTypeString(x) + ", expected x.round: " + toTypeString(expected) + ", but got a.round: " + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1220,11 +1214,11 @@ class TestNumVal extends Spec {
    */
   protected def log2Func(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the log base 2.
-     * @param expected The log2 of the Scala numeric type.
-     * @param a The NumVal for which to find the log2.
-     */
+		/*
+		 * <!-- vfy --> Verify the log base 2.
+		 * @param expected The log2 of the Scala numeric type.
+		 * @param a The NumVal for which to find the log2.
+		 */
     def vfy(expected: Double, isNaN: Boolean, a: NumVal) {
       //      caseCount += 1
       val actual = a.log2
@@ -1236,7 +1230,7 @@ class TestNumVal extends Spec {
         else (actual > expected + ulp || actual < expected - ulp)
       if (notEq) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1263,7 +1257,8 @@ class TestNumVal extends Spec {
         val log = refLb(u); val a = NumVal(u); vfy(log, log.isNaN, a)
       case (u: BigInt) =>
         val log = refLb(u.toDouble); val a = NumVal(u); vfy(log, log.isNaN, a)
-      case (u: BigDecimal) => val log = refLb(u.toDouble); val a = NumVal(u); vfy(log, log.isNaN, a)
+      case (u: BigDecimal) => val log = refLb(u.toDouble); val a = NumVal(u);
+      	vfy(log, log.isNaN, a)
     }
   }
 
@@ -1273,11 +1268,11 @@ class TestNumVal extends Spec {
    */
   protected def log10Func(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the log base 10.
-     * @param expected The log10 of the Scala numeric type.
-     * @param a The NumVal for which to find the log10.
-     */
+		/*
+		 * <!-- vfy --> Verify the log base 10.
+		 * @param expected The log10 of the Scala numeric type.
+		 * @param a The NumVal for which to find the log10.
+		 */
     def vfy(expected: Double, isNaN: Boolean, a: NumVal) {
       //      caseCount += 1
       val actual = a.log10
@@ -1288,7 +1283,7 @@ class TestNumVal extends Spec {
         else (actual > expected + ulp || actual < expected - ulp)
       if (notEq) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1322,12 +1317,12 @@ class TestNumVal extends Spec {
    */
   protected def lnFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the log base 10.
-     * @param expected The ln of the Scala numeric type.
-     * @param isNaN Whether the expected value is NaN.
-     * @param a The NumVal for which to find the ln.
-     */
+		/*
+		 * <!-- vfy --> Verify the log base 10.
+		 * @param expected The ln of the Scala numeric type.
+		 * @param isNaN Whether the expected value is NaN.
+		 * @param a The NumVal for which to find the ln.
+		 */
     def vfy(expected: Double, isNaN: Boolean, a: NumVal) {
       //      caseCount += 1
       val actual = a.ln
@@ -1338,7 +1333,7 @@ class TestNumVal extends Spec {
         else (actual > expected + ulp || actual < expected - ulp)
       if (notEq) {
         val clue = "test value: " + toTypeString(x)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1372,11 +1367,11 @@ class TestNumVal extends Spec {
    */
   protected def expFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The exp of the Scala numeric type.
-     * @param a The NumVal for which to find the exp.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The exp of the Scala numeric type.
+		 * @param a The NumVal for which to find the exp.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(expected)
@@ -1384,7 +1379,7 @@ class TestNumVal extends Spec {
       val neq = actual.isNaN != isNaN(expected)
       if (neq || subtractInKind(expected, actual).abv > expectedErr) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1450,11 +1445,11 @@ class TestNumVal extends Spec {
    */
   protected def sinFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The sine of the Scala numeric type.
-     * @param a The NumVal for which to find the sine.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The sine of the Scala numeric type.
+		 * @param a The NumVal for which to find the sine.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val expectedErr = 1.0e-14    // by inspection; error in java.math sin
@@ -1462,7 +1457,7 @@ class TestNumVal extends Spec {
       val neq = actual.isNaN != isNaN(expected)
       if (neq || subtractInKind(expected, actual).abv > expectedErr) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1499,11 +1494,11 @@ class TestNumVal extends Spec {
    */
   protected def cosFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The cosine of the Scala numeric type.
-     * @param a The NumVal for which to find the cosine.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The cosine of the Scala numeric type.
+		 * @param a The NumVal for which to find the cosine.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val expectedErr = 1.0e-14    // by inspection; error in java.math cos
@@ -1511,7 +1506,7 @@ class TestNumVal extends Spec {
       val neq = actual.isNaN != isNaN(expected)
       if (neq || subtractInKind(expected, actual).abv > expectedErr) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1548,11 +1543,11 @@ class TestNumVal extends Spec {
    */
   protected def tanFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The tangent of the Scala numeric type.
-     * @param a The NumVal for which to find the tangent.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The tangent of the Scala numeric type.
+		 * @param a The NumVal for which to find the tangent.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val expectedErr = 1.0e-11    // by inspection; error in java.math tan
@@ -1560,7 +1555,7 @@ class TestNumVal extends Spec {
       val neq = actual.isNaN != isNaN(expected)
       if (neq || subtractInKind(expected, actual).abv > expectedErr) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1597,11 +1592,11 @@ class TestNumVal extends Spec {
    */
   protected def asinFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The arc sine of the Scala numeric type.
-     * @param a The NumVal for which to find the arc sine.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The arc sine of the Scala numeric type.
+		 * @param a The NumVal for which to find the arc sine.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(expected)
@@ -1609,7 +1604,7 @@ class TestNumVal extends Spec {
       val neq = actual.isNaN != isNaN(expected)
       if (neq || subtractInKind(expected, actual).abv > expectedErr) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1644,11 +1639,11 @@ class TestNumVal extends Spec {
    */
   protected def acosFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The arc cosine of the Scala numeric type.
-     * @param a The NumVal for which to find the arc cosine.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The arc cosine of the Scala numeric type.
+		 * @param a The NumVal for which to find the arc cosine.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(expected)
@@ -1656,7 +1651,7 @@ class TestNumVal extends Spec {
       val neq = actual.isNaN != isNaN(expected)
       if (neq || subtractInKind(expected, actual).abv > expectedErr) {
         val clue = "test value: " + toTypeString(x) + ", expectedErr:" + expectedErr + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1691,11 +1686,11 @@ class TestNumVal extends Spec {
    */
   protected def atanFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The arc tangent of the Scala numeric type.
-     * @param a The NumVal for which to find the arc tangent.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The arc tangent of the Scala numeric type.
+		 * @param a The NumVal for which to find the arc tangent.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(expected)
@@ -1703,7 +1698,7 @@ class TestNumVal extends Spec {
       val neq = actual.isNaN != isNaN(expected)
       if (neq || subtractInKind(expected, actual).abv > expectedErr) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1738,11 +1733,11 @@ class TestNumVal extends Spec {
    */
   protected def ulpFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The ulp of the Scala numeric type.
-     * @param a The NumVal for which to find the ulp.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The ulp of the Scala numeric type.
+		 * @param a The NumVal for which to find the ulp.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(expected)
@@ -1750,7 +1745,7 @@ class TestNumVal extends Spec {
       val neq = actual.isNaN != isNaN(expected)
       if (neq || subtractInKind(expected, actual).abv > expectedErr) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1784,17 +1779,17 @@ class TestNumVal extends Spec {
    */
   protected def unaryPlusFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The unaryPlus of the Scala numeric type.
-     * @param a The NumVal for which to find the unaryPlus.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The unaryPlus of the Scala numeric type.
+		 * @param a The NumVal for which to find the unaryPlus.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val actual = +a
       if (a != expected) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1828,17 +1823,17 @@ class TestNumVal extends Spec {
    */
   protected def unaryMinusFunc(x: Any) {
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The unaryMinus of the Scala numeric type.
-     * @param a The NumVal for which to find the unaryMinus.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The unaryMinus of the Scala numeric type.
+		 * @param a The NumVal for which to find the unaryMinus.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val actual = -a
       if (a != expected) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1872,11 +1867,11 @@ class TestNumVal extends Spec {
    */
   protected def unaryNotFunc(x: Any) {
 
-    /**
-     * <!-- notIntPart --> Find the bit-wise NOT of the integer part of a floating point number.
-     * @param u The input floating point number.
-     * @return The bit-wise NOT result.
-     */
+		/*
+		 * <!-- notIntPart --> Find the bit-wise NOT of the integer part of a floating point number.
+		 * @param u The input floating point number.
+		 * @return The bit-wise NOT result.
+		 */
     def notIntPart(u: Any) = {
       u match {
         case v: Float =>
@@ -1889,17 +1884,17 @@ class TestNumVal extends Spec {
       }
     }
 
-    /**
-     * <!-- vfy --> Verify the natural log.
-     * @param expected The unaryNot of the Scala numeric type.
-     * @param a The NumVal for which to find the unary_~.
-     */
+		/*
+		 * <!-- vfy --> Verify the natural log.
+		 * @param expected The unaryNot of the Scala numeric type.
+		 * @param a The NumVal for which to find the unary_~.
+		 */
     def vfy(expected: Any, a: NumVal) {
       //      caseCount += 1
       val actual = ~a
       if (a != expected) {
         val clue = "test value: " + toTypeString(x) + ", expected:" + toTypeString(expected) + ", actual:" + actual.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -1992,19 +1987,19 @@ class TestNumVal extends Spec {
    */
   protected def minFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify "min".
-     * @param expected The expected minimum.
-     * @param a The first NumVal.
-     * @param b The second NumVal.
-     */
+		/*
+		 * <!-- vfy --> Verify "min".
+		 * @param expected The expected minimum.
+		 * @param a The first NumVal.
+		 * @param b The second NumVal.
+		 */
     def vfy(expected: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a min b
       if (actual != expected) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected=" + toTypeString(expected) + ", actual=" + toTypeString(actual)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -2227,19 +2222,19 @@ class TestNumVal extends Spec {
    */
   protected def maxFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify "max".
-     * @param expected The expected maximum.
-     * @param a The first NumVal.
-     * @param b The second NumVal.
-     */
+		/*
+		 * <!-- vfy --> Verify "max".
+		 * @param expected The expected maximum.
+		 * @param a The first NumVal.
+		 * @param b The second NumVal.
+		 */
     def vfy(expected: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a max b
       if (actual != expected) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected=" + toTypeString(expected) + ", actual=" + toTypeString(actual)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -2481,19 +2476,19 @@ class TestNumVal extends Spec {
    */
   protected def shiftLeftFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify shift left.
-     * @param expected The expected shifted Scala numeric value.
-     * @param a The NumVal to shift.
-     * @param b The NumVal bits to shift.
-     */
+		/*
+		 * <!-- vfy --> Verify shift left.
+		 * @param expected The expected shifted Scala numeric value.
+		 * @param a The NumVal to shift.
+		 * @param b The NumVal bits to shift.
+		 */
     def vfy(expected: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a << b
       if (actual != expected) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected=" + toTypeString(expected) + ", actual=" + toTypeString(actual)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -2717,19 +2712,19 @@ class TestNumVal extends Spec {
    */
   protected def shiftRightUnsignedFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify shift right unsigned.
-     * @param expected The expected shifted Scala numeric value.
-     * @param a The NumVal to shift.
-     * @param b The NumVal bits to shift.
-     */
+		/*
+		 * <!-- vfy --> Verify shift right unsigned.
+		 * @param expected The expected shifted Scala numeric value.
+		 * @param a The NumVal to shift.
+		 * @param b The NumVal bits to shift.
+		 */
     def vfy(expected: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a >>> b
       if (actual != expected) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected=" + toTypeString(expected) + ", actual=" + toTypeString(actual)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -2953,19 +2948,19 @@ class TestNumVal extends Spec {
    */
   protected def shiftRightFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify shift right.
-     * @param expected The expected shifted Scala numeric value.
-     * @param a The NumVal to shift.
-     * @param b The NumVal bits to shift.
-     */
+		/*
+		 * <!-- vfy --> Verify shift right.
+		 * @param expected The expected shifted Scala numeric value.
+		 * @param a The NumVal to shift.
+		 * @param b The NumVal bits to shift.
+		 */
     def vfy(expected: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a >> b
       if (actual != expected) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected=" + toTypeString(expected) + ", actual=" + toTypeString(actual)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -3188,18 +3183,18 @@ class TestNumVal extends Spec {
    */
   protected def orFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify bit-wise OR.
-     * @param expected The expected OR of Scala numeric values.
-     * @param a, b The NumVals to OR.
-     */
+		/*
+		 * <!-- vfy --> Verify bit-wise OR.
+		 * @param expected The expected OR of Scala numeric values.
+		 * @param a, b The NumVals to OR.
+		 */
     def vfy(expected: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a | b
       if (!(actual.isNaN && isNaN(expected)) && actual != expected) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected=" + toTypeString(expected) + ", actual=" + toTypeString(actual)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -3422,18 +3417,18 @@ class TestNumVal extends Spec {
    */
   protected def andFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify bit-wise AND.
-     * @param expected The expected AND of Scala numeric values.
-     * @param a, b The NumVals to AND.
-     */
+		/*
+		 * <!-- vfy --> Verify bit-wise AND.
+		 * @param expected The expected AND of Scala numeric values.
+		 * @param a, b The NumVals to AND.
+		 */
     def vfy(expected: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a & b
       if (!(actual.isNaN && isNaN(expected)) && actual != expected) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected=" + toTypeString(expected) + ", actual=" + toTypeString(actual)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -3656,18 +3651,18 @@ class TestNumVal extends Spec {
    */
   protected def xorFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify bit-wise XOR.
-     * @param expected The expected XOR of Scala numeric values.
-     * @param a, b The NumVals to XOR.
-     */
+		/*
+		 * <!-- vfy --> Verify bit-wise XOR.
+		 * @param expected The expected XOR of Scala numeric values.
+		 * @param a, b The NumVals to XOR.
+		 */
     def vfy(expected: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a ^ b
       if (!(actual.isNaN && isNaN(expected)) && actual != expected) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected=" + toTypeString(expected) + ", actual=" + toTypeString(actual)
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -3890,19 +3885,19 @@ class TestNumVal extends Spec {
    */
   protected def equalsFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify equality.
-     * @param expected The expected equality.
-     * @param a The first NumVal.
-     * @param b The second NumVal.
-     */
+		/*
+		 * <!-- vfy --> Verify equality.
+		 * @param expected The expected equality.
+		 * @param a The first NumVal.
+		 * @param b The second NumVal.
+		 */
     def vfy(expected: Boolean, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a.equals(b)
       if (expected != actual) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected x == y: " + expected + ", but got a.equals(b): " + actual
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -4125,19 +4120,19 @@ class TestNumVal extends Spec {
    */
   protected def compareFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify compare.
-     * @param comp The comparison x-y result.
-     * @param a The first NumVal.
-     * @param b The second NumVal.
-     */
+		/*
+		 * <!-- vfy --> Verify compare.
+		 * @param comp The comparison x-y result.
+		 * @param a The first NumVal.
+		 * @param b The second NumVal.
+		 */
     def vfy(comp: Int, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val expected = if (comp < 0) -1 else if (comp > 0) 1 else 0
       val actual = a.compare(b)
       if (expected != actual) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -4286,7 +4281,7 @@ class TestNumVal extends Spec {
       case (u: Float, v: Double) =>
         val c = float2Double(u).compare(v); val a = NumVal(u); val b = NumVal(v); vfy(c, a, b)
       case (u: Float, v: BigInt) =>
-        val c = if (!u.isInfinity) BigDecimal(u).compare(BigDecimal(v)) else if (u.isPosInfinity) 1 else -1; val a = NumVal(u); val b = NumVal(v); vfy(c, a, b)
+        val c = if (!u.isInfinity) BigDecimal.decimal(u).compare(BigDecimal(v)) else if (u.isPosInfinity) 1 else -1; val a = NumVal(u); val b = NumVal(v); vfy(c, a, b)
       case (u: Float, v: BigDecimal) =>
         val c = if (!u.isInfinity) BigDecimal(u.toString).compare(v) else if (u.isPosInfinity) 1 else -1; val a = NumVal(u); val b = NumVal(v); vfy(c, a, b)
 
@@ -4324,7 +4319,7 @@ class TestNumVal extends Spec {
       case (u: BigInt, v: Long) =>
         val c = u.compare(v); val a = NumVal(u); val b = NumVal(v); vfy(c, a, b)
       case (u: BigInt, v: Float) =>
-        val c = if (!v.isInfinity) BigDecimal(u).compare(BigDecimal(v)) else if (v.isPosInfinity) -1 else 1; val a = NumVal(u); val b = NumVal(v); vfy(c, a, b)
+        val c = if (!v.isInfinity) BigDecimal(u).compare(BigDecimal.decimal(v)) else if (v.isPosInfinity) -1 else 1; val a = NumVal(u); val b = NumVal(v); vfy(c, a, b)
       case (u: BigInt, v: Double) =>
         val c = if (!v.isInfinity) BigDecimal(u).compare(BigDecimal(v)) else if (v.isPosInfinity) -1 else 1; val a = NumVal(u); val b = NumVal(v); vfy(c, a, b)
       case (u: BigInt, v: BigInt) =>
@@ -4360,19 +4355,19 @@ class TestNumVal extends Spec {
    */
   protected def ltFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify "<".
-     * @param expected The expected conditional.
-     * @param a The first NumVal.
-     * @param b The second NumVal.
-     */
+		/*
+		 * <!-- vfy --> Verify "<".
+		 * @param expected The expected conditional.
+		 * @param a The first NumVal.
+		 * @param b The second NumVal.
+		 */
     def vfy(expected: Boolean, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a < b
       if (expected != actual) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected x < y =" + expected + ", but got a < b =" + actual
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -4521,7 +4516,7 @@ class TestNumVal extends Spec {
       case (u: Float, v: Double) =>
         val lt = float2Double(u) < v; val a = NumVal(u); val b = NumVal(v); vfy(lt, a, b)
       case (u: Float, v: BigInt) =>
-        val lt = if (!u.isInfinity) BigDecimal(u) < BigDecimal(v) else u.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(lt, a, b)
+        val lt = if (!u.isInfinity) BigDecimal.decimal(u) < BigDecimal(v) else u.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(lt, a, b)
       case (u: Float, v: BigDecimal) =>
         val lt = if (!u.isInfinity) BigDecimal(u.toString) < v else u.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(lt, a, b)
 
@@ -4559,7 +4554,7 @@ class TestNumVal extends Spec {
       case (u: BigInt, v: Long) =>
         val lt = u < v; val a = NumVal(u); val b = NumVal(v); vfy(lt, a, b)
       case (u: BigInt, v: Float) =>
-        val lt = if (!v.isInfinity) BigDecimal(u) < BigDecimal(v) else v.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(lt, a, b)
+        val lt = if (!v.isInfinity) BigDecimal(u) < BigDecimal.decimal(v) else v.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(lt, a, b)
       case (u: BigInt, v: Double) =>
         val lt = if (!v.isInfinity) BigDecimal(u) < BigDecimal(v) else v.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(lt, a, b)
       case (u: BigInt, v: BigInt) =>
@@ -4595,19 +4590,19 @@ class TestNumVal extends Spec {
    */
   protected def leFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify "<=".
-     * @param expected The expected conditional.
-     * @param a The first NumVal.
-     * @param b The second NumVal.
-     */
+		/*
+		 * <!-- vfy --> Verify "<=".
+		 * @param expected The expected conditional.
+		 * @param a The first NumVal.
+		 * @param b The second NumVal.
+		 */
     def vfy(expected: Boolean, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a <= b
       if (expected != actual) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected x <= y =" + expected + ", but got a <= b =" + actual
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -4756,7 +4751,7 @@ class TestNumVal extends Spec {
       case (u: Float, v: Double) =>
         val le = float2Double(u) <= v; val a = NumVal(u); val b = NumVal(v); vfy(le, a, b)
       case (u: Float, v: BigInt) =>
-        val le = if (!u.isInfinity) BigDecimal(u) <= BigDecimal(v) else u.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(le, a, b)
+        val le = if (!u.isInfinity) BigDecimal.decimal(u) <= BigDecimal(v) else u.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(le, a, b)
       case (u: Float, v: BigDecimal) =>
         val le = if (!u.isInfinity) BigDecimal(u.toString) <= v else u.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(le, a, b)
 
@@ -4794,7 +4789,7 @@ class TestNumVal extends Spec {
       case (u: BigInt, v: Long) =>
         val le = u <= v; val a = NumVal(u); val b = NumVal(v); vfy(le, a, b)
       case (u: BigInt, v: Float) =>
-        val le = if (!v.isInfinity) BigDecimal(u) <= BigDecimal(v) else v.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(le, a, b)
+        val le = if (!v.isInfinity) BigDecimal(u) <= BigDecimal.decimal(v) else v.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(le, a, b)
       case (u: BigInt, v: Double) =>
         val le = if (!v.isInfinity) BigDecimal(u) <= BigDecimal(v) else v.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(le, a, b)
       case (u: BigInt, v: BigInt) =>
@@ -4830,19 +4825,19 @@ class TestNumVal extends Spec {
    */
   protected def gtFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify ">".
-     * @param expected The expected conditional.
-     * @param a The first NumVal.
-     * @param b The second NumVal.
-     */
+		/*
+		 * <!-- vfy --> Verify ">".
+		 * @param expected The expected conditional.
+		 * @param a The first NumVal.
+		 * @param b The second NumVal.
+		 */
     def vfy(expected: Boolean, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a > b
       if (expected != actual) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected x > y =" + expected + ", but got a > b =" + actual
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -4991,7 +4986,7 @@ class TestNumVal extends Spec {
       case (u: Float, v: Double) =>
         val gt = float2Double(u) > v; val a = NumVal(u); val b = NumVal(v); vfy(gt, a, b)
       case (u: Float, v: BigInt) =>
-        val gt = if (!u.isInfinity) BigDecimal(u) > BigDecimal(v) else u.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(gt, a, b)
+        val gt = if (!u.isInfinity) BigDecimal.decimal(u) > BigDecimal(v) else u.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(gt, a, b)
       case (u: Float, v: BigDecimal) =>
         val gt = if (!u.isInfinity) BigDecimal(u.toString) > v else u.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(gt, a, b)
 
@@ -5029,7 +5024,7 @@ class TestNumVal extends Spec {
       case (u: BigInt, v: Long) =>
         val gt = u > v; val a = NumVal(u); val b = NumVal(v); vfy(gt, a, b)
       case (u: BigInt, v: Float) =>
-        val gt = if (!v.isInfinity) BigDecimal(u) > BigDecimal(v) else v.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(gt, a, b)
+        val gt = if (!v.isInfinity) BigDecimal(u) > BigDecimal.decimal(v) else v.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(gt, a, b)
       case (u: BigInt, v: Double) =>
         val gt = if (!v.isInfinity) BigDecimal(u) > BigDecimal(v) else v.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(gt, a, b)
       case (u: BigInt, v: BigInt) =>
@@ -5065,19 +5060,19 @@ class TestNumVal extends Spec {
    */
   protected def geFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify ">=".
-     * @param expected The expected conditional.
-     * @param a The first NumVal.
-     * @param b The second NumVal.
-     */
+		/*
+		 * <!-- vfy --> Verify ">=".
+		 * @param expected The expected conditional.
+		 * @param a The first NumVal.
+		 * @param b The second NumVal.
+		 */
     def vfy(expected: Boolean, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val actual = a >= b
       if (expected != actual) {
         val clue = "x: " + toTypeString(x) + ", y: " + toTypeString(y) + ", a: " + a.toTypeString + ", b: " + b.toTypeString +
           ", expected x >= y =" + expected + ", but got a >= b =" + actual
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
     }
 
@@ -5226,7 +5221,7 @@ class TestNumVal extends Spec {
       case (u: Float, v: Double) =>
         val ge = float2Double(u) >= v; val a = NumVal(u); val b = NumVal(v); vfy(ge, a, b)
       case (u: Float, v: BigInt) =>
-        val ge = if (!u.isInfinity) BigDecimal(u) >= BigDecimal(v) else u.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(ge, a, b)
+        val ge = if (!u.isInfinity) BigDecimal.decimal(u) >= BigDecimal(v) else u.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(ge, a, b)
       case (u: Float, v: BigDecimal) =>
         val ge = if (!u.isInfinity) BigDecimal(u.toString) >= v else u.isPosInfinity; val a = NumVal(u); val b = NumVal(v); vfy(ge, a, b)
 
@@ -5264,7 +5259,7 @@ class TestNumVal extends Spec {
       case (u: BigInt, v: Long) =>
         val ge = u >= v; val a = NumVal(u); val b = NumVal(v); vfy(ge, a, b)
       case (u: BigInt, v: Float) =>
-        val ge = if (!v.isInfinity) BigDecimal(u) >= BigDecimal(v) else v.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(ge, a, b)
+        val ge = if (!v.isInfinity) BigDecimal(u) >= BigDecimal.decimal(v) else v.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(ge, a, b)
       case (u: BigInt, v: Double) =>
         val ge = if (!v.isInfinity) BigDecimal(u) >= BigDecimal(v) else v.isNegInfinity; val a = NumVal(u); val b = NumVal(v); vfy(ge, a, b)
       case (u: BigInt, v: BigInt) =>
@@ -5300,33 +5295,33 @@ class TestNumVal extends Spec {
    */
   protected def addFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- safeAddInt --> Add 2 Ints, widening if needed to Long to avoid overflow.
-     * @param x, y The values to add.
-     * @return The sum.
-     */
+		/*
+		 * <!-- safeAddInt --> Add 2 Ints, widening if needed to Long to avoid overflow.
+		 * @param x, y The values to add.
+		 * @return The sum.
+		 */
     def safeAddInt(x: Int, y: Int): AnyVal = {
       val s = x + y;
       if ((Int.MinValue & (x ^ y)) == 0 && (Int.MinValue & (x ^ s)) != 0) x.longValue + y else s
     }
 
-    /**
-     * <!-- safeAddLong --> Add 2 Longs, widening if needed to BigInt to avoid overflow.
-     * @param x, y The values to add.
-     * @return The sum.
-     */
+		/*
+		 * <!-- safeAddLong --> Add 2 Longs, widening if needed to BigInt to avoid overflow.
+		 * @param x, y The values to add.
+		 * @return The sum.
+		 */
     def safeAddLong(x: Long, y: Long): Any =
       {
         val s = x + y;
         if ((Long.MinValue & (x ^ y)) == 0 && (Long.MinValue & (x ^ s)) != 0) BigInt(x) + y else s
       }
 
-    /**
-     * <!-- safeAdd --> Add two floating point numbers, but preserve Float or Double infinity.
-     * @param a The first value.
-     * @param b The second value.
-     * @return The sum as Float, Double or BigDecimal.  Adding opposite-signed infinities gives a zero Float or Double result.
-     */
+		/*
+		 * <!-- safeAdd --> Add two floating point numbers, but preserve Float or Double infinity.
+		 * @param a The first value.
+		 * @param b The second value.
+		 * @return The sum as Float, Double or BigDecimal.  Adding opposite-signed infinities gives a zero Float or Double result.
+		 */
     def safeAdd(a: Any, b: Any): Any =
       (a, b) match {
         case (u: Float, v: Float) => if (!u.isInfinity) u + v else if (v.isInfinity && u != v) 0.0f else u
@@ -5341,12 +5336,12 @@ class TestNumVal extends Spec {
         case _ => Double.NaN
       }
 
-    /**
-     * <!-- ident --> Given sum "s" of a+b, verify a+b == NumVal(a) + NumVal(b)
-     * @param s The sum a+b as a Scala numeric type.
-     * @param a The first addend.
-     * @param b The second addend.
-     */
+		/*
+		 * <!-- ident --> Given sum "s" of a+b, verify a+b == NumVal(a) + NumVal(b)
+		 * @param s The sum a+b as a Scala numeric type.
+		 * @param a The first addend.
+		 * @param b The second addend.
+		 */
     def ident(s: Any, a: NumVal, b: NumVal) {
       val expectedErr = xerr(s) + xerr(a).max(xerr(b)) // expected error is the max of sum, a or b
       val aPlusB = a + b
@@ -5356,17 +5351,17 @@ class TestNumVal extends Spec {
         val clue = "identity failed. x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(s) + ", got: " + toTypeString(aPlusB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", aPlusB: " + aPlusB.toTypeString
-        expectResult(s, clue) { actual }
+        assertResult(s, clue) { actual }
       }
     }
 
-    /**
-     * <!-- expectedDiffPair --> Given sum "sn" of a+b, return the pair(xa = sn-b, xb = sn-a).
-     * @param sn The sum NumVal.
-     * @param a The first addend.
-     * @param b The second addend.
-     * @return The "expected" a and b values by subtraction.
-     */
+		/*
+		 * <!-- expectedDiffPair --> Given sum "sn" of a+b, return the pair(xa = sn-b, xb = sn-a).
+		 * @param sn The sum NumVal.
+		 * @param a The first addend.
+		 * @param b The second addend.
+		 * @return The "expected" a and b values by subtraction.
+		 */
     def expectedDiffPair(sn: NumVal, a: NumVal, b: NumVal): (NumVal, NumVal) = {
       val err = xerr(sn)
       var xa = a
@@ -5387,12 +5382,12 @@ class TestNumVal extends Spec {
       (xa, xb)
     }
 
-    /**
-     * <!-- inverse --> Given sum "sn" of a+b, verify b == sn-a and a == sn-b.
-     * @param sn The sum NumVal.
-     * @param a The first addend.
-     * @param b The second addend.
-     */
+		/*
+		 * <!-- inverse --> Given sum "sn" of a+b, verify b == sn-a and a == sn-b.
+		 * @param sn The sum NumVal.
+		 * @param a The first addend.
+		 * @param b The second addend.
+		 */
     def inverse(sn: NumVal, a: NumVal, b: NumVal) {
       val expectedErr = xerr(sn) + xerr(a).max(xerr(b)) // expected error is the sum error + max of a or b error
       val (expectedA, expectedB) = expectedDiffPair(sn, a, b)
@@ -5402,21 +5397,21 @@ class TestNumVal extends Spec {
         val clueA = "inverse failed (a = sn-b). x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(expectedA) + ", got: " + toTypeString(resultA) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", sn: " + sn.toTypeString
-        expectResult(expectedA, clueA) { resultA }
+        assertResult(expectedA, clueA) { resultA }
       }
       if ((expectedB - resultB).abv > expectedErr) {
         val clueB = "inverse failed (b = sn-a). x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + expectedB + ", got: " + toTypeString(resultB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", sn: " + sn.toTypeString
-        expectResult(expectedB, clueB) { resultB }
+        assertResult(expectedB, clueB) { resultB }
       }
     }
 
-    /**
-     * <!-- commute --> Verify that a+b == b+a.
-     * @param a The first addend.
-     * @param b The second addend.
-     */
+		/*
+		 * <!-- commute --> Verify that a+b == b+a.
+		 * @param a The first addend.
+		 * @param b The second addend.
+		 */
     def commute(a: NumVal, b: NumVal) {
       val first = a + b
       val second = b + a
@@ -5428,12 +5423,12 @@ class TestNumVal extends Spec {
       }
     }
 
-    /**
-     * <!-- assoc --> Verify that (a+b)+c == a+(b+c).
-     * @param a The first addend.
-     * @param b The second addend.
-     * @param c A third value to test associativity.
-     */
+		/*
+		 * <!-- assoc --> Verify that (a+b)+c == a+(b+c).
+		 * @param a The first addend.
+		 * @param b The second addend.
+		 * @param c A third value to test associativity.
+		 */
     def assoc(a: NumVal, b: NumVal, c: NumVal) {
       val maxErr = xerr(a) max xerr(b) max xerr(c)
       val maxVal = a.abv max b.abv max c.abv
@@ -5448,14 +5443,14 @@ class TestNumVal extends Spec {
       }
     }
 
-    /**
-     * <!-- vfy --> Verify the properties of addition.
-     * @param s The sum a+b as a Scala numeric type.
-     * @param sn The sum NumVal.
-     * @param a The first addend.
-     * @param b The second addend.
-     * @param c A third value to test associativity.
-     */
+		/*
+		 * <!-- vfy --> Verify the properties of addition.
+		 * @param s The sum a+b as a Scala numeric type.
+		 * @param sn The sum NumVal.
+		 * @param a The first addend.
+		 * @param b The second addend.
+		 * @param c A third value to test associativity.
+		 */
     def vfy(s: Any, sn: NumVal, a: NumVal, b: NumVal, c: NumVal) {
       //    caseCount += 1
       ident(s, a, b)
@@ -5683,12 +5678,12 @@ class TestNumVal extends Spec {
    */
   protected def subFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify subtraction.
-     * @param d The difference a-b as a Scala numeric type.
-     * @param a The minuend.
-     * @param b The subtrahend.
-     */
+		/*
+		 * <!-- vfy --> Verify subtraction.
+		 * @param d The difference a-b as a Scala numeric type.
+		 * @param a The minuend.
+		 * @param b The subtrahend.
+		 */
     def vfy(d: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(d) + xerr(a).max(xerr(b)) // expected error is the max of sum, a or b
@@ -5699,7 +5694,7 @@ class TestNumVal extends Spec {
         val clue = "x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(d) + ", got: " + toTypeString(aMinusB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", aMinusB: " + aMinusB.toTypeString
-        expectResult(d, clue) { actual }
+        assertResult(d, clue) { actual }
       }
     }
 
@@ -5924,39 +5919,39 @@ class TestNumVal extends Spec {
 
     // TODO: try removing xerr calls (set expectedErr = 0) to see if needed for multiply.
 
-    /**
-     * <!-- magInt --> Find the magnitude of an integer.
-     * @param x The integer value.
-     * @return The magnitude.
-     */
+		/*
+		 * <!-- magInt --> Find the magnitude of an integer.
+		 * @param x The integer value.
+		 * @return The magnitude.
+		 */
     def magInt(x: Int) = 31 - Integer.numberOfLeadingZeros(if (x < 0) -x else x)
 
-    /**
-     * <!-- safeMultInt --> Multiply 2 Ints, widening if needed to Long to avoid overflow.
-     * @param x, y The values to multiply.
-     * @return The product.
-     */
+		/*
+		 * <!-- safeMultInt --> Multiply 2 Ints, widening if needed to Long to avoid overflow.
+		 * @param x, y The values to multiply.
+		 * @return The product.
+		 */
     def safeMultInt(x: Int, y: Int): AnyVal = if (magInt(x) + magInt(y) < 30) x * y else x.toLong * y
 
-    /**
-     * <!-- magLong --> Find the magnitude of a long integer.
-     * @param x The long integer value.
-     * @return The magnitude.
-     */
+		/*
+		 * <!-- magLong --> Find the magnitude of a long integer.
+		 * @param x The long integer value.
+		 * @return The magnitude.
+		 */
     def magLong(x: Long) = 63 - java.lang.Long.numberOfLeadingZeros(if (x < 0) -x else x)
 
-    /**
-     * <!-- safeMultLong --> Multiply 2 Longs, widening if needed to BigInt to avoid overflow.
-     * @param x, y The values to multiply.
-     * @return The product.
-     */
+		/*
+		 * <!-- safeMultLong --> Multiply 2 Longs, widening if needed to BigInt to avoid overflow.
+		 * @param x, y The values to multiply.
+		 * @return The product.
+		 */
     def safeMultLong(x: Long, y: Long): Any = if (magLong(x) + magLong(y) < 62) x * y else BigInt(x) * y
 
-    /**
-     * <!-- safeMultFloat --> Multiply a long and float, widening if needed to BigDecimal to avoid overflow.
-     * @param x, y The values to multiply.
-     * @return The product.
-     */
+		/*
+		 * <!-- safeMultFloat --> Multiply a long and float, widening if needed to BigDecimal to avoid overflow.
+		 * @param x, y The values to multiply.
+		 * @return The product.
+		 */
     def safeMultFloat(l: Long, f: Float): Any =
       {
         if (f.isInfinity)
@@ -5966,11 +5961,11 @@ class TestNumVal extends Spec {
           BigDecimal(f.toString) * l
       }
 
-    /**
-     * <!-- safeMultDouble --> Multiply a long and double, widening if needed to BigDecimal to avoid overflow.
-     * @param x, y The values to multiply.
-     * @return The product.
-     */
+		/*
+		 * <!-- safeMultDouble --> Multiply a long and double, widening if needed to BigDecimal to avoid overflow.
+		 * @param x, y The values to multiply.
+		 * @return The product.
+		 */
     def safeMultDouble(l: Long, d: Double): Any =
       {
         if (d.isInfinity)
@@ -5980,12 +5975,12 @@ class TestNumVal extends Spec {
           BigDecimal(d) * l
       }
 
-    /**
-     * <!-- safeMult --> Multiply two floating point numbers (Float, Double or BigDecimal), but preserve Float or Double infinity.
-     * @param a The first value.
-     * @param b The second value.
-     * @return The product as Float, Double or BigDecimal.
-     */
+		/*
+		 * <!-- safeMult --> Multiply two floating point numbers (Float, Double or BigDecimal), but preserve Float or Double infinity.
+		 * @param a The first value.
+		 * @param b The second value.
+		 * @return The product as Float, Double or BigDecimal.
+		 */
     def safeMult(a: Any, b: Any): Any =
       (a, b) match {
         case (u: Float, v: Float) => if (u.isInfinity) if (v == 0) Float.NaN else if (v < 0) -u else u else if (v.isInfinity) if (u == 0) Float.NaN else if (u < 0) -v else v else BigDecimal(u.toString) * BigDecimal(v.toString)
@@ -6007,12 +6002,12 @@ class TestNumVal extends Spec {
         case _ => Double.NaN
       }
 
-    /**
-     * <!-- ident --> Given product "p" of a*b, verify a*b == NumVal(a) * NumVal(b)
-     * @param p The product a*b as a Scala numeric type.
-     * @param a The first factor.
-     * @param b The second factor.
-     */
+		/*
+		 * <!-- ident --> Given product "p" of a*b, verify a*b == NumVal(a) * NumVal(b)
+		 * @param p The product a*b as a Scala numeric type.
+		 * @param a The first factor.
+		 * @param b The second factor.
+		 */
     def ident(p: Any, a: NumVal, b: NumVal) {
       val expectedErr = xerr(p) + xerr(a).max(xerr(b)) // expected error is the max of sum, a or b
       val aTimesB = a * b
@@ -6022,17 +6017,17 @@ class TestNumVal extends Spec {
         val clue = "identity failed. x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(p) + ", got: " + toTypeString(aTimesB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", aTimesB: " + aTimesB.toTypeString
-        expectResult(p, clue) { actual }
+        assertResult(p, clue) { actual }
       }
     }
 
-    /**
-     * <!-- expectedQuotientPair --> Given product "pn" of a*b, return the pair(xa = pn/b, xb = pn/a).
-     * @param pn The product NumVal.
-     * @param a The first factor.
-     * @param b The second factor.
-     * @return The "expected" a and b values by division.
-     */
+		/*
+		 * <!-- expectedQuotientPair --> Given product "pn" of a*b, return the pair(xa = pn/b, xb = pn/a).
+		 * @param pn The product NumVal.
+		 * @param a The first factor.
+		 * @param b The second factor.
+		 * @return The "expected" a and b values by division.
+		 */
     def expectedQuotientPair(pn: NumVal, a: NumVal, b: NumVal): (NumVal, NumVal) = {
       var xa = a
       var xb = b
@@ -6057,12 +6052,12 @@ class TestNumVal extends Spec {
       (xa, xb)
     }
 
-    /**
-     * <!-- inverse --> Given product "pn" of a*b, verify b == pn/a and a == pn/b.
-     * @param pn The product NumVal.
-     * @param a The first factor.
-     * @param b The second factor.
-     */
+		/*
+		 * <!-- inverse --> Given product "pn" of a*b, verify b == pn/a and a == pn/b.
+		 * @param pn The product NumVal.
+		 * @param a The first factor.
+		 * @param b The second factor.
+		 */
     def inverse(pn: NumVal, a: NumVal, b: NumVal) {
       val expectedErr = (xerr(pn) + xerr(a).max(xerr(b))) * 2 // expected error is the product error + max of a or b error
       val (expectedA, expectedB) = expectedQuotientPair(pn, a, b)
@@ -6072,21 +6067,21 @@ class TestNumVal extends Spec {
         val clueA = "inverse failed (a = pn/b). x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(expectedA) + ", got: " + toTypeString(resultA) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", pn: " + pn.toTypeString
-        expectResult(expectedA, clueA) { resultA }
+        assertResult(expectedA, clueA) { resultA }
       }
       if ((expectedB - resultB).abv > expectedErr) {
         val clueB = "inverse failed (b = pn/a). x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + expectedB + ", got: " + toTypeString(resultB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", pn: " + pn.toTypeString
-        expectResult(expectedB, clueB) { resultB }
+        assertResult(expectedB, clueB) { resultB }
       }
     }
 
-    /**
-     * <!-- commute --> Verify that a*b == b*a.
-     * @param a The first factor.
-     * @param b The second factor.
-     */
+		/*
+		 * <!-- commute --> Verify that a*b == b*a.
+		 * @param a The first factor.
+		 * @param b The second factor.
+		 */
     def commute(a: NumVal, b: NumVal) {
       val first = a * b
       val second = b * a
@@ -6098,12 +6093,12 @@ class TestNumVal extends Spec {
       }
     }
 
-    /**
-     * <!-- assoc --> Verify that (a*b)*c == a*(b*c).
-     * @param a The first factor.
-     * @param b The second factor.
-     * @param c A third value to test associativity.
-     */
+		/*
+		 * <!-- assoc --> Verify that (a*b)*c == a*(b*c).
+		 * @param a The first factor.
+		 * @param b The second factor.
+		 * @param c A third value to test associativity.
+		 */
     def assoc(a: NumVal, b: NumVal, c: NumVal) {
       val maxErr = xerr(a) max xerr(b) max xerr(c)
       val maxVal = a.abv max b.abv max c.abv
@@ -6119,34 +6114,48 @@ class TestNumVal extends Spec {
       }
     }
 
-    /**
-     * <!-- distrib --> Verify that a*(b+c) == a*b + a*c.
-     * @param a The first factor.
-     * @param b The second factor.
-     * @param c A third value to test distrubutivity.
-     */
+		/*
+		 * <!-- distrib --> Verify that a*(b+c) == a*b + a*c.
+		 * @param a The first factor.
+		 * @param b The second factor.
+		 * @param c A third value to test distrubutivity.
+		 */
     def distrib(a: NumVal, b: NumVal, c: NumVal) {
       val first = a * (b + c)
       val second = a * b + a * c
-
-      var expectedErr = if (first.isNaN || first.isInfinity) NumVal(0) else
-        (xerr(b + c) * first).abv max ((xerr(a) + xerr(b) + xerr(c)) * first).abv * 2
+      var expectedErr =
+      	if (first.isNaN || first.isInfinity)
+      		NumVal(0)
+        else {
+        	val err = (xerr(b + c) * first).abv max ((xerr(a) + xerr(b) + xerr(c)) * first).abv * 2
+        	if (first.rep == bigDec && second.rep == bigDec) {
+	        	val prec = first.toBigDecimal.mc.getPrecision min second.toBigDecimal.mc.getPrecision
+	        	val absFirst = first.abv
+	        	val absSecond = second.abv
+	        	val bigger = if (absFirst > absSecond) absFirst.toBigDecimal else absSecond.toBigDecimal
+						val errFactor = NumVal(NumVal.Bd1.bigDecimal.movePointLeft(prec))
+						val alt = bigger * errFactor
+	        	err max alt max errFactor
+        	} else
+        		err
+        }
       if ((first - second).abv > expectedErr) {
         val clue = "distributive failed. x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
-          " a:" + a.toTypeString + ", b:" + b.toTypeString + " c:" + c.toTypeString +
-          ", a*(b+c): " + first.toTypeString + ", a*b + a*c: " + second.toTypeString
+          " a:" + a.toTypeString + ", b:" + b.toTypeString + ", c:" + c.toTypeString +
+          ", a*(b+c): " + first.toTypeString + ", a*b + a*c: " + second.toTypeString +
+          ", actual error: " + (first - second).abv
         assert(first === second, clue)
       }
     }
 
-    /**
-     * <!-- vfy --> Verify the properties of multiplication.
-     * @param p The product a*b as a Scala numeric type.
-     * @param pn The product NumVal.
-     * @param a The first factor.
-     * @param b The second factor.
-     * @param c A third value to test associativity and distrubutivity.
-     */
+		/*
+		 * <!-- vfy --> Verify the properties of multiplication.
+		 * @param p The product a*b as a Scala numeric type.
+		 * @param pn The product NumVal.
+		 * @param a The first factor.
+		 * @param b The second factor.
+		 * @param c A third value to test associativity and distrubutivity.
+		 */
     def vfy(p: Any, pn: NumVal, a: NumVal, b: NumVal, c: NumVal) {
       ident(p, a, b)
       if (!pn.isNaN)
@@ -6377,12 +6386,12 @@ class TestNumVal extends Spec {
    */
   protected def divideFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- safeDivideInt --> Divide 2 Ints, yielding 0 if the dividend is 0 and infinity if divisor is 0.
-     * @param x The dividend.
-     * @param y The divisor.
-     * @return The quotient.
-     */
+		/*
+		 * <!-- safeDivideInt --> Divide 2 Ints, yielding 0 if the dividend is 0 and infinity if divisor is 0.
+		 * @param x The dividend.
+		 * @param y The divisor.
+		 * @return The quotient.
+		 */
     def safeDivideInt(x: Int, y: Int): AnyVal =
       if (y == 0)
         if (x == 0) Double.NaN
@@ -6390,12 +6399,12 @@ class TestNumVal extends Spec {
         else Double.PositiveInfinity
       else x.doubleValue / y
 
-    /**
-     * <!-- safeDivideLong --> Divide 2 Longs, yielding 0 if the dividend is 0 and infinity if divisor is 0.
-     * @param x The dividend.
-     * @param y The divisor
-     * @return The quotient.
-     */
+		/*
+		 * <!-- safeDivideLong --> Divide 2 Longs, yielding 0 if the dividend is 0 and infinity if divisor is 0.
+		 * @param x The dividend.
+		 * @param y The divisor
+		 * @return The quotient.
+		 */
     def safeDivideLong(x: Long, y: Long): Any =
       if (y == 0)
         if (x == 0) Double.NaN
@@ -6403,12 +6412,12 @@ class TestNumVal extends Spec {
         else Double.PositiveInfinity
       else x.doubleValue / y
 
-    /**
-     * <!-- divideFloat --> Divide 2 Floats.
-     * @param x The dividend.
-     * @param y The divisor
-     * @return The quotient.
-     */
+		/*
+		 * <!-- divideFloat --> Divide 2 Floats.
+		 * @param x The dividend.
+		 * @param y The divisor
+		 * @return The quotient.
+		 */
     def divideFloat(x: Float, y: Float): Any = {
       val d = java.lang.Math.getExponent(x) - java.lang.Math.getExponent(y)
       if (d < -125) (BigDecimal(x.toString) / BigDecimal(y.toString)).doubleValue // promote to avoid underflow
@@ -6419,12 +6428,12 @@ class TestNumVal extends Spec {
       }
     }
 
-    /**
-     * <!-- divideDouble --> Divide 2 Floats.
-     * @param x The dividend.
-     * @param y The divisor
-     * @return The quotient.
-     */
+		/*
+		 * <!-- divideDouble --> Divide 2 Floats.
+		 * @param x The dividend.
+		 * @param y The divisor
+		 * @return The quotient.
+		 */
     def divideDouble(x: Double, y: Double): Any = {
       val d = java.lang.Math.getExponent(x) - java.lang.Math.getExponent(y)
       if (d < -1021) (BigDecimal(x.toString) / BigDecimal(y.toString)).doubleValue // promote to avoid underflow
@@ -6435,12 +6444,12 @@ class TestNumVal extends Spec {
       }
     }
 
-    /**
-     * <!-- safeDivide --> Divide two floating point numbers (Float, Double or BigDecimal), but preserve Float or Double infinity.
-     * @param a The dividend.
-     * @param b The divisor.
-     * @return The quotient as Float, Double or BigDecimal.
-     */
+		/*
+		 * <!-- safeDivide --> Divide two floating point numbers (Float, Double or BigDecimal), but preserve Float or Double infinity.
+		 * @param a The dividend.
+		 * @param b The divisor.
+		 * @return The quotient as Float, Double or BigDecimal.
+		 */
     def safeDivide(a: Any, b: Any): Any =
       (a, b) match {
         case (u: Float, v: Float) =>
@@ -6602,12 +6611,12 @@ class TestNumVal extends Spec {
         case _ => Double.NaN
       }
 
-    /**
-     * <!-- vfy --> Verify division.
-     * @param q The quotient a/b as a Scala numeric type.
-     * @param a The dividend.
-     * @param b The divisor.
-     */
+		/*
+		 * <!-- vfy --> Verify division.
+		 * @param q The quotient a/b as a Scala numeric type.
+		 * @param a The dividend.
+		 * @param b The divisor.
+		 */
     def vfy(q: Any, a: NumVal, b: NumVal) {
       val expectedErr = xerr(q) + xerr(a).max(xerr(b)) // expected error is the max of sum, a or b
       val aDivByB = a / b
@@ -6617,7 +6626,7 @@ class TestNumVal extends Spec {
         val clue = "identity failed. x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(q) + ", got: " + toTypeString(aDivByB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", aDivByB: " + aDivByB.toTypeString
-        expectResult(q, clue) { actual }
+        assertResult(q, clue) { actual }
       }
     }
 
@@ -6841,12 +6850,12 @@ class TestNumVal extends Spec {
    */
   protected def divFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- safeDivDouble --> Div two Doubles as BigInts.
-     * @param a The dividend.
-     * @param b The divisor.
-     * @return The quotient as BigInt (or Double infinity).
-     */
+		/*
+		 * <!-- safeDivDouble --> Div two Doubles as BigInts.
+		 * @param a The dividend.
+		 * @param b The divisor.
+		 * @return The quotient as BigInt (or Double infinity).
+		 */
     def safeDivDouble(a: Double, b: Double) = {
       if (b.isInfinity)
         if (a.isInfinity)
@@ -6862,12 +6871,12 @@ class TestNumVal extends Spec {
       }
     }
 
-    /**
-     * <!-- safeDiv --> Divide two numbers (Double, BigInt or BigDecimal).
-     * @param a The dividend.
-     * @param b The divisor.
-     * @return The quotient as BigInt (or Double NaN).
-     */
+		/*
+		 * <!-- safeDiv --> Divide two numbers (Double, BigInt or BigDecimal).
+		 * @param a The dividend.
+		 * @param b The divisor.
+		 * @return The quotient as BigInt (or Double NaN).
+		 */
     def safeDiv(a: Any, b: Any) =
       (a, b) match {
         case (u: Double, v: BigInt) => {
@@ -6927,12 +6936,12 @@ class TestNumVal extends Spec {
         case _ => Double.NaN
       }
 
-    /**
-     * <!-- vfy --> Verify integer "div".
-     * @param q The quotient a div b as a Scala integer type.
-     * @param a The dividend.
-     * @param b The divisor.
-     */
+		/*
+		 * <!-- vfy --> Verify integer "div".
+		 * @param q The quotient a div b as a Scala integer type.
+		 * @param a The dividend.
+		 * @param b The divisor.
+		 */
     def vfy(q: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(q) + xerr(a).max(xerr(b)) // expected error is the max of sum, a or b
@@ -6943,7 +6952,7 @@ class TestNumVal extends Spec {
         val clue = "x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(q) + ", got: " + toTypeString(aDivB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", aDivB: " + aDivB.toTypeString
-        expectResult(q, clue) { actual }
+        assertResult(q, clue) { actual }
       }
     }
 
@@ -7167,24 +7176,24 @@ class TestNumVal extends Spec {
    */
   protected def modFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- safeModBigDecimal --> Safely perform BigDecimal modulo BigDecimal.
-     * @param a The dividend.
-     * @param b The divisor.
-     * @return The modulo result, or NaN if the divisor is near zero.
-     */
+		/*
+		 * <!-- safeModBigDecimal --> Safely perform BigDecimal modulo BigDecimal.
+		 * @param a The dividend.
+		 * @param b The divisor.
+		 * @return The modulo result, or NaN if the divisor is near zero.
+		 */
     def safeModBigDecimal(a: BigDecimal, b: BigDecimal) = {
       if (b.abs <= Float.MinPositiveValue) Double.NaN
       else if (a.abs >= Float.MaxValue) a.doubleValue % b.doubleValue // BigDecimal limitation!
       else a % b
     }
 
-    /**
-     * <!-- vfy --> Verify the modulo operation.
-     * @param m The modulo a%b as a Scala integer type.
-     * @param a The dividend.
-     * @param b The divisor.
-     */
+		/*
+		 * <!-- vfy --> Verify the modulo operation.
+		 * @param m The modulo a%b as a Scala integer type.
+		 * @param a The dividend.
+		 * @param b The divisor.
+		 */
     def vfy(m: Any, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(m) + xerr(a).max(xerr(b)) // expected error is the max of sum, a or b
@@ -7195,7 +7204,7 @@ class TestNumVal extends Spec {
         val clue = "x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(m) + ", got: " + toTypeString(aModB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", aModB: " + aModB.toTypeString
-        expectResult(m, clue) { actual }
+        assertResult(m, clue) { actual }
       }
     }
 
@@ -7419,12 +7428,12 @@ class TestNumVal extends Spec {
    */
   protected def logFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify the log (arbitrary base) operation.
-     * @param expected The expected test result.
-     * @param a The value (power) for which to find the log.
-     * @param b The base.
-     */
+		/*
+		 * <!-- vfy --> Verify the log (arbitrary base) operation.
+		 * @param expected The expected test result.
+		 * @param a The value (power) for which to find the log.
+		 * @param b The base.
+		 */
     def vfy(expected: Double, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val expectedErr = xerr(expected) + xerr(a).max(xerr(b)) // expected error is the max of sum, a or b
@@ -7439,7 +7448,7 @@ class TestNumVal extends Spec {
         val clue = "x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(expected) + ", got: " + toTypeString(aLogB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", aLogB: " + aLogB.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
       // TODO: Test log(a*b) === log(a) + log(b)
       // TODO: Test log(BigDecimal(a,mc600) === BigDecimal(log(BigDecimal(a,mc700)),mc600)
@@ -7682,12 +7691,12 @@ class TestNumVal extends Spec {
    */
   protected def powFunc(x: Any, y: Any) {
 
-    /**
-     * <!-- vfy --> Verify the pow (arbitrary base) operation.
-     * @param xpect The expected test result.
-     * @param a The base value to raise to the given exponent.
-     * @param b The exponent.
-     */
+		/*
+		 * <!-- vfy --> Verify the pow (arbitrary base) operation.
+		 * @param xpect The expected test result.
+		 * @param a The base value to raise to the given exponent.
+		 * @param b The exponent.
+		 */
     def vfy(xpect: Double, a: NumVal, b: NumVal) {
       //      caseCount += 1
       val errInExpected = xerr(xpect) * 65    // TODO: Replace! instead of comparing expectedErr with expected - aPowB, compare xerr with aPowB / expected - 1
@@ -7711,18 +7720,18 @@ class TestNumVal extends Spec {
         val clue = "x:" + toTypeString(x) + ", y:" + toTypeString(y) + ", expectedErr:" + expectedErr +
           ", expected: " + toTypeString(expected) + ", got: " + toTypeString(aPowB) +
           ", a:" + a.toTypeString + ", b:" + b.toTypeString + ", aPowB: " + aPowB.toTypeString
-        expectResult(expected, clue) { actual }
+        assertResult(expected, clue) { actual }
       }
       // TODO: Test pow(a+b) === pow(a) + pow(b)
       // TODO: Test pow(BigDecimal(a,mc600) === BigDecimal(pow(BigDecimal(a,mc700)),mc600)
     }
 
-    /**
-     * <!-- refPow --> Compute a reference value for the power, using Java/Scala math lib and sanity checks.
-     * @param value The base value to raise to the given exponent.
-     * @param expon The exponent.
-     * @return The expected power result.
-     */
+		/*
+		 * <!-- refPow --> Compute a reference value for the power, using Java/Scala math lib and sanity checks.
+		 * @param value The base value to raise to the given exponent.
+		 * @param expon The exponent.
+		 * @return The expected power result.
+		 */
     def refPow(value:Double, expon:Double):Double =
       if (expon == 0.0) 1.0
       else if (value < 0.0) {
@@ -8308,10 +8317,10 @@ class TestNumVal extends Spec {
   }
 }
 
-class DebugTnv {}
-
-object DebugTnv {
-  def main(args: Array[String]) {
-  	println("in DebugTnv")
-  }
-}
+//class DebugTnv {}
+//
+//object DebugTnv {
+//  def main(args: Array[String]) {
+//  	println("in DebugTnv")
+//  }
+//}

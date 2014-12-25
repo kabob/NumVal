@@ -125,7 +125,7 @@ pomExtra := (
     <developer>
       <id>kabob</id>
       <name>Robert Kohlenberger</name>
-      <email>kohlenrw@bdumail.com</email>
+      <email>kohlenrw@comcast.net</email>
     </developer>
   </developers>
 )
