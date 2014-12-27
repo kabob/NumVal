@@ -390,7 +390,6 @@ object Transcendental {
 
   private def cfExp(x:BigDecimal, mc:java.math.MathContext) = {
       val preciseMc = new java.math.MathContext(mc.getPrecision + 2)
-      val bd0 = BigDecimal("0", preciseMc)
       val bd1 = BigDecimal("1", preciseMc)
       val bd2 = BigDecimal("2", preciseMc)
       val hx = x(preciseMc) / bd2
