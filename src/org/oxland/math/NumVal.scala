@@ -2169,10 +2169,10 @@ private[math] case class BigDecimalVal(x: BigDecimal) extends NumVal {
   def impl_log(base: BigDecimalVal): NumVal = Transcendental.log(x, base.x)
 }
 
-class DebugNv0 {}
-
-object DebugNv0 {
-  def main(args: Array[String]) {
-    println("in DebugNv0")
-	}
-}
+//class DebugNv0 {}
+//
+//object DebugNv0 {
+//  def main(args: Array[String]) {
+//    println("in DebugNv0")
+//	}
+//}
