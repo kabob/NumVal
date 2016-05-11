@@ -48,6 +48,7 @@ import scala.annotation.tailrec
  *    log10 Find log base 10
  *    log  Find the log to an arbitrary base
  *    pow Find x^y
+ *    root Find the nth root
  *    sin Find the sine
  *    cos Find the cosine
  *    tan Find the tangent
@@ -58,7 +59,6 @@ import scala.annotation.tailrec
  *  TODO:
  *    toDegrees
  *    toRadians
- *    root (generalize private sqrt)
  *    atan2
  *    sinh
  *    cosh
@@ -262,13 +262,10 @@ object Transcendental {
       val bi = build(dList.tail,dList.head)
       val prec = dList.length + (if (iter.value != 0) iter.value.mc.getPrecision else 0)
       val mc = new java.math.MathContext(prec)    // use the combined precision of input iteration value and new digits
-      Iteration(
-      		BigDecimal.decimal(
-      				BigDecimal(bi,mc).bigDecimal.movePointLeft(prec - 1),
-      				mc
-      		)
-      		+ iter.value,
-      		q, r, t, i)
+
+//			Iteration(BigDecimal(BigDecimal(bi,mc).bigDecimal.movePointLeft(prec - 1),mc) + iter.value, q, r, t, i)  << fix deprecation
+				Iteration(BigDecimal.decimal(BigDecimal(bi,mc).bigDecimal.movePointLeft(prec - 1),mc) + iter.value, q, r, t, i)
+
     }
 
     def value(mc:java.math.MathContext):BigDecimal = {
@@ -338,7 +335,19 @@ object Transcendental {
 
   }    // LazyLn2
 
-  // TODO: generalize to find the nth root? (http://en.wikipedia.org/wiki/Nth_root_algorithm)
+  /**
+   * <!-- root --> Find the nth root of a BigDecimal.
+   * @param n The reciprocal of the exponent on x.
+   * @param x The number for which to obtain the nth root.
+   * @return The nth root of x.
+   */
+  private def root(n:BigDecimal, x:BigDecimal) = {
+		val mc = x.mc
+		val preciseMc = new java.math.MathContext(mc.getPrecision + 2)
+		val bd2 = BigDecimal("2", preciseMc)
+  	pow(bd2, lb(x) / n)
+  }
+
   /**
    * <!-- sqrt --> Find the square root of a BigDecimal.
    * @see http://en.wikipedia.org/wiki/Nth_root_algorithm
@@ -384,7 +393,9 @@ object Transcendental {
 
   private def splitBd(x:BigDecimal, mc:java.math.MathContext): (BigInt,BigDecimal) = {
     val intPart = x.toBigInt
-    val fracPart = x - BigDecimal(intPart, mc)
+		val bdInt = BigDecimal(intPart, mc)
+		val fracPart = if (x == bdInt) NumVal.Bd0 else x - bdInt
+				// explicit zero assignment fixes a problem in Scala 2.10 where BigDecimal 0E+273 is not considered zero!
     (intPart,fracPart)
   }
 
@@ -909,46 +920,46 @@ object Transcendental {
 
 }      // Transcendental
 
-//class DebugTd {}
-//
-//object DebugTd {
-//
-//  def main(args: Array[String]) {
-//    println("hello world")
-//    val mc500 = new java.math.MathContext(500)
-//    val mc1000 = new java.math.MathContext(1000)
-//    val mc2000 = new java.math.MathContext(2000)
-//
-//    // COS:
-//    val th0 = System.currentTimeMillis
-//    val testh1 = Transcendental.cos(BigDecimal("1", new java.math.MathContext(20)))
-//    val th1 = System.currentTimeMillis
-//    val testh2 = Transcendental.cos(BigDecimal("-1000", mc500))
-//    val th2 = System.currentTimeMillis
-//    val testh3 = Transcendental.cos(BigDecimal("-1000", mc1000))
-//    val th3 = System.currentTimeMillis
-//    val testhRef = Transcendental.cos(BigDecimal("-1000", mc2000))
-//    println("cos test1=" + testh1 + ", time=" + (th1-th0))
-//    println("cos test2=" + testh2 + ", time=" + (th2-th1))
-//    println("cos test3=" + testh3 + ", time=" + (th3-th2))
-//    println("cos testRef=" + testhRef)
-//
-//    val t0 = System.currentTimeMillis
-//    val e1 = Transcendental.exp(BigDecimal("10000",mc500))
-//    val t1 = System.currentTimeMillis
-//    println("e^10000 =" + e1 + ", time=" + (t1 - t0))
-//    val e2 = Transcendental.exp(BigDecimal("10000000",mc500))
-//    val t2 = System.currentTimeMillis
-//    println("e^10000000 =" + e2 + ", time=" + (t2 - t1))
-//    val e3 = Transcendental.exp(BigDecimal("100000000",mc500))
-//    val t3 = System.currentTimeMillis
-//    println("e^100000000 =" + e3 + ", time=" + (t3 - t2))
-//    val e4 = Transcendental.exp(BigDecimal("999999999",mc500))
-//    val t4 = System.currentTimeMillis
-//    println("e^999999999 =" + e4 + ", time=" + (t4 - t3))
-//    val e5 = Transcendental.exp(BigDecimal("-4944762640",mc500))
-//    val t5 = System.currentTimeMillis
-//    println("e^4944763835 =" + e5 + ", time=" + (t5 - t4))
-//  }
-//
-//}		// DebugTd class
+class DebugTd {}
+
+object DebugTd {
+
+  def main(args: Array[String]) {
+    println("hello world")
+    val mc500 = new java.math.MathContext(500)
+    val mc1000 = new java.math.MathContext(1000)
+    val mc2000 = new java.math.MathContext(2000)
+
+    // COS:
+    val th0 = System.currentTimeMillis
+    val testh1 = Transcendental.cos(BigDecimal("1", new java.math.MathContext(20)))
+    val th1 = System.currentTimeMillis
+    val testh2 = Transcendental.cos(BigDecimal("-1000", mc500))
+    val th2 = System.currentTimeMillis
+    val testh3 = Transcendental.cos(BigDecimal("-1000", mc1000))
+    val th3 = System.currentTimeMillis
+    val testhRef = Transcendental.cos(BigDecimal("-1000", mc2000))
+    println("cos test1=" + testh1 + ", time=" + (th1-th0))
+    println("cos test2=" + testh2 + ", time=" + (th2-th1))
+    println("cos test3=" + testh3 + ", time=" + (th3-th2))
+    println("cos testRef=" + testhRef)
+
+    val t0 = System.currentTimeMillis
+    val e1 = Transcendental.exp(BigDecimal("10000",mc500))
+    val t1 = System.currentTimeMillis
+    println("e^10000 =" + e1 + ", time=" + (t1 - t0))
+    val e2 = Transcendental.exp(BigDecimal("10000000",mc500))
+    val t2 = System.currentTimeMillis
+    println("e^10000000 =" + e2 + ", time=" + (t2 - t1))
+    val e3 = Transcendental.exp(BigDecimal("100000000",mc500))
+    val t3 = System.currentTimeMillis
+    println("e^100000000 =" + e3 + ", time=" + (t3 - t2))
+    val e4 = Transcendental.exp(BigDecimal("999999999",mc500))
+    val t4 = System.currentTimeMillis
+    println("e^999999999 =" + e4 + ", time=" + (t4 - t3))
+    val e5 = Transcendental.exp(BigDecimal("-4944762640",mc500))
+    val t5 = System.currentTimeMillis
+    println("e^4944763835 =" + e5 + ", time=" + (t5 - t4))
+  }
+
+}		// DebugTd class
